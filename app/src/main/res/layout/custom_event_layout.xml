@@ -7,8 +7,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="384dp"
-        android:layout_height="109dp"
+        android:layout_width="370dp"
+        android:layout_height="179dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -29,7 +29,7 @@
                 android:layout_height="25dp"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="Event name"
+                android:text="@string/event_name"
                 android:textColor="#FFFFFF"
                 android:textSize="18dp"
                 android:textStyle="bold"
@@ -46,9 +46,9 @@
                 android:layout_height="25dp"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:textSize="15dp"
-                android:text="Event location"
+                android:text="@string/event_location"
                 android:textColor="#FFFFFF"
+                android:textSize="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -60,13 +60,43 @@
                 android:layout_height="25dp"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="Event time"
+                android:text="@string/event_time"
                 android:textColor="#FFFFFF"
                 android:textSize="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_eventLocation" />
+
+            <TextView
+                android:id="@+id/txt_eventSeats"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:text="@string/event_seats"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_eventLocation" />
+
+            <Button
+                android:id="@+id/btn_attend"
+                android:layout_width="82dp"
+                android:layout_height="25dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="@string/attend"
+                android:textAllCaps="false"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.954" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

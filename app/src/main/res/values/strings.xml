@@ -16,4 +16,13 @@
     <string name="options">Options</string>
     <string name="delete_event">Delete event</string>
     <string name="edit_event">Edit event</string>
+    <string name="event_time">Event time</string>
+    <string name="event_seats">Event seats</string>
+    <string name="attend">Attend</string>
+    <string name="event_location">Event location</string>
+    <string name="event_name">Event name</string>
+    <string name="enter_event_number_of_seats">Enter event number of seats</string>
+    <string name="enter_event_location">Enter event location</string>
+    <string name="enter_date_and_time">Enter date and time</string>
+    <string name="enter_event_name">Enter event name</string>
 </resources>

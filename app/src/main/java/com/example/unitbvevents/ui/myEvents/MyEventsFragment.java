@@ -63,6 +63,7 @@ public class MyEventsFragment extends Fragment {
                         event.setName(eventObject.getString("name"));
                         event.setLocation(eventObject.getString("location"));
                         event.setDateTime(eventObject.getString("dateTime"));
+                        event.setSeats(eventObject.getInt("seats"));
                         if (eventObject.getString("createdBy").matches(sessionManager.getSessionUsername())) {
                             myEvents.add(event);
                         }

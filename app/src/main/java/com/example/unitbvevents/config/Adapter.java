@@ -38,6 +38,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         holder.eventName.setText("Name: "+events.get(position).getName());
         holder.eventLocation.setText("Location: "+events.get(position).getLocation());
         holder.eventTime.setText("Date and time: "+events.get(position).getDateTime());
+        holder.eventSeats.setText("Seats: "+events.get(position).getSeats());
 
     }
 
@@ -48,7 +49,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView eventName, eventLocation, eventTime;
+        TextView eventName, eventLocation, eventTime, eventSeats;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -56,6 +57,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             eventName = itemView.findViewById(R.id.txt_eventName);
             eventLocation = itemView.findViewById(R.id.txt_eventLocation);
             eventTime = itemView.findViewById(R.id.txt_eventTime);
+            eventSeats = itemView.findViewById(R.id.txt_eventSeats);
         }
 
     }

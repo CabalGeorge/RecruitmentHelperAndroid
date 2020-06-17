@@ -16,5 +16,9 @@
         android:name="com.example.unitbvevents.ui.myEvents.MyEventsFragment"
         android:label="@string/my_events"
         tools:layout="@layout/fragment_myevents" />
+    <fragment
+        android:id="@+id/nav_attending"
+        android:name="com.example.unitbvevents.ui.attendingEvents.AttendingEventsFragment"
+        android:label="AttendingEventsFragment" />
 
 </navigation>

@@ -19,7 +19,6 @@
             android:name=".activities.HomeActivity"
             android:label="Home"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.LoginActivity">
             <intent-filter>
@@ -34,11 +33,9 @@
         <activity
             android:name=".popups.DeletePopUp"
             android:theme="@style/AppTheme.CustomTheme" />
-
         <activity
             android:name=".popups.EditPopUp"
             android:theme="@style/AppTheme.CustomTheme" />
-
     </application>
 
 </manifest>

@@ -7,8 +7,15 @@ public class Event {
     private String name;
     private String dateTime;
     private String location;
-    private User createdBy;
+    private Integer seats;
 
+    public Integer getSeats() {
+        return seats;
+    }
+
+    public void setSeats(Integer seats) {
+        this.seats = seats;
+    }
 
     public String getName() {
         return name;
@@ -35,10 +42,11 @@ public class Event {
         this.location = location;
     }
 
-    public Event(String name, String dateTime, String location){
+    public Event(String name, String dateTime, String location, Integer seats){
         this.name=name;
         this.dateTime=dateTime;
         this.location=location;
+        this.seats=seats;
     }
 
     public Event(){}
@@ -47,8 +55,9 @@ public class Event {
     public String toString() {
         return "Event{" +
                 "name='" + name + '\'' +
-                ", time=" + dateTime +
+                ", dateTime='" + dateTime + '\'' +
                 ", location='" + location + '\'' +
+                ", seats=" + seats +
                 '}';
     }
 }

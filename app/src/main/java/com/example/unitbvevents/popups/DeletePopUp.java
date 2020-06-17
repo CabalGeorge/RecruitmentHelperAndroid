@@ -16,7 +16,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.unitbvevents.R;
@@ -89,7 +88,7 @@ public class DeletePopUp extends Activity {
                                     Toast.makeText(getApplicationContext(), "Event successfully deleted!", Toast.LENGTH_LONG).show();
                                 } else if (response.equals("FAILED")) {
                                     Toast.makeText(getApplicationContext(), "Event could not be deleted!", Toast.LENGTH_LONG).show();
-                                } else if(response.equals("NO NAME")){
+                                } else if (response.equals("NO NAME")) {
                                     Toast.makeText(getApplicationContext(), "No event with this name!", Toast.LENGTH_LONG).show();
                                 }
                             }

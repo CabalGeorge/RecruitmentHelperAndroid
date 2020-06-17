@@ -1,20 +1,19 @@
-package com.example.unitbvevents.ui.home;
+package com.example.unitbvevents.ui.attendingEvents;
 
-import android.app.Activity;
-import android.content.Context;
+import androidx.lifecycle.ViewModelProviders;
+
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.unitbvevents.R;
 import com.example.unitbvevents.config.Adapter;
 import com.example.unitbvevents.config.Constant;
+import com.example.unitbvevents.config.SessionManager;
 import com.example.unitbvevents.model.Event;
 
 import org.json.JSONArray;
@@ -34,22 +34,28 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+public class AttendingEventsFragment extends Fragment {
 
-public class HomeFragment extends Fragment {
-
-    private HomeViewModel homeViewModel;
+    private AttendingEventsViewModel mViewModel;
     RecyclerView recyclerView;
-    List<Event> events;
+    List<Event> enlistedEvents;
     Adapter adapter;
+    SessionManager sessionManager;
 
+    public static AttendingEventsFragment newInstance() {
+        return new AttendingEventsFragment();
+    }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+       View root = inflater.inflate(R.layout.fragment_enlisted_events, container, false);
 
-        events = new ArrayList<>();
+
+        enlistedEvents = new ArrayList<>();
+        sessionManager = new SessionManager(getActivity().getApplicationContext());
+
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
         String url = Constant.GETEVENTS_URL;
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -65,14 +71,16 @@ public class HomeFragment extends Fragment {
                         event.setLocation(eventObject.getString("location"));
                         event.setDateTime(eventObject.getString("dateTime"));
                         event.setSeats(eventObject.getInt("seats"));
-                        events.add(event);
+                        if (eventObject.getString("createdBy").matches(sessionManager.getSessionUsername())) {
+                            enlistedEvents.add(event);
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
 
-                adapter = new Adapter(getActivity().getApplicationContext(), events);
-                recyclerView = rootView.findViewById(R.id.eventsList);
+                adapter = new Adapter(getActivity().getApplicationContext(), enlistedEvents);
+                recyclerView = root.findViewById(R.id.enlistedEventsList);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
                 recyclerView.setAdapter(adapter);
 
@@ -87,8 +95,7 @@ public class HomeFragment extends Fragment {
         requestQueue.add(jsonArrayRequest);
 
 
-        return rootView;
+        return root;
+
     }
-
-
 }
