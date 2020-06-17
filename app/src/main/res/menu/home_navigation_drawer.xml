@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
         <item
@@ -12,6 +12,10 @@
             android:id="@+id/nav_my_events"
             android:icon="@drawable/ic_baseline_bookmarks_24"
             android:title="@string/my_events" />
+        <item
+            android:id="@+id/nav_attending_events"
+            android:icon="@drawable/ic_baseline_stars_24"
+            android:title="@string/attending"/>
     </group>
 
     <item android:title="@string/options">

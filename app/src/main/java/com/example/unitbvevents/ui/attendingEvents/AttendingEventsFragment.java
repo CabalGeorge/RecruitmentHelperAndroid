@@ -42,9 +42,6 @@ public class AttendingEventsFragment extends Fragment {
     Adapter adapter;
     SessionManager sessionManager;
 
-    public static AttendingEventsFragment newInstance() {
-        return new AttendingEventsFragment();
-    }
 
     @Nullable
     @Override
@@ -70,7 +67,7 @@ public class AttendingEventsFragment extends Fragment {
                         event.setName(eventObject.getString("name"));
                         event.setLocation(eventObject.getString("location"));
                         event.setDateTime(eventObject.getString("dateTime"));
-                        event.setSeats(eventObject.getInt("seats"));
+                        event.setSeats(eventObject.getString("seats"));
                         if (eventObject.getString("createdBy").matches(sessionManager.getSessionUsername())) {
                             enlistedEvents.add(event);
                         }

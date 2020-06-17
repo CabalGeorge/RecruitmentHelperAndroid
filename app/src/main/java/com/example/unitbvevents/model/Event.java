@@ -7,13 +7,13 @@ public class Event {
     private String name;
     private String dateTime;
     private String location;
-    private Integer seats;
+    private String seats;
 
-    public Integer getSeats() {
+    public String getSeats() {
         return seats;
     }
 
-    public void setSeats(Integer seats) {
+    public void setSeats(String seats) {
         this.seats = seats;
     }
 
@@ -42,7 +42,7 @@ public class Event {
         this.location = location;
     }
 
-    public Event(String name, String dateTime, String location, Integer seats){
+    public Event(String name, String dateTime, String location, String seats){
         this.name=name;
         this.dateTime=dateTime;
         this.location=location;

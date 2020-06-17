@@ -25,4 +25,5 @@
     <string name="enter_event_location">Enter event location</string>
     <string name="enter_date_and_time">Enter date and time</string>
     <string name="enter_event_name">Enter event name</string>
+    <string name="attending">Attending</string>
 </resources>
