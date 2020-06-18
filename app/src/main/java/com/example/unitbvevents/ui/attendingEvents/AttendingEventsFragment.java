@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -49,13 +50,24 @@ public class AttendingEventsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
        View root = inflater.inflate(R.layout.fragment_enlisted_events, container, false);
 
+       getActivity().setTitle("Attending events");
+
 
         enlistedEvents = new ArrayList<>();
         sessionManager = new SessionManager(getActivity().getApplicationContext());
 
+        JSONArray jsonArray=new JSONArray();
+        JSONObject jsonObject=new JSONObject();
+        try {
+            jsonObject.put("username",sessionManager.getSessionUsername());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        String url = Constant.GETEVENTS_URL;
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+        String url = Constant.ENLISTED_URL+sessionManager.getSessionUsername();
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
@@ -68,9 +80,7 @@ public class AttendingEventsFragment extends Fragment {
                         event.setLocation(eventObject.getString("location"));
                         event.setDateTime(eventObject.getString("dateTime"));
                         event.setSeats(eventObject.getString("seats"));
-                        if (eventObject.getString("createdBy").matches(sessionManager.getSessionUsername())) {
-                            enlistedEvents.add(event);
-                        }
+                        enlistedEvents.add(event);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -87,7 +97,9 @@ public class AttendingEventsFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 Log.d("tag", "onErrorResponse" + error.getMessage());
             }
-        });
+        }) {
+
+        };
 
         requestQueue.add(jsonArrayRequest);
 

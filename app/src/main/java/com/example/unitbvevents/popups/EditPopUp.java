@@ -36,7 +36,7 @@ import java.util.Map;
 
 public class EditPopUp extends Activity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
-    EditText eventName, dateTime, eventLocation;
+    EditText eventName, dateTime, eventLocation, eventSeats;
     SessionManager sessionManager;
     SharedPreferences sharedPreferences;
 
@@ -62,6 +62,7 @@ public class EditPopUp extends Activity implements DatePickerDialog.OnDateSetLis
         eventName = findViewById(R.id.eventName);
         dateTime = findViewById(R.id.datetime);
         eventLocation = findViewById(R.id.eventLocation);
+        eventSeats=findViewById(R.id.eventSeats);
 
         Button update = findViewById(R.id.btn_update);
         update.setOnClickListener(new View.OnClickListener() {
@@ -113,8 +114,14 @@ public class EditPopUp extends Activity implements DatePickerDialog.OnDateSetLis
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        String time = hourOfDay + ":" + minute;
-        dateTime.setText(dateTime.getText() + time);
+        if(minute<10){
+            String time = hourOfDay + ":0" + minute;
+            dateTime.setText(dateTime.getText() + time);
+        }
+        else {
+            String time = hourOfDay + ":" +minute;
+            dateTime.setText(dateTime.getText() + time);
+        }
     }
 
 
@@ -146,6 +153,8 @@ public class EditPopUp extends Activity implements DatePickerDialog.OnDateSetLis
                                     Toast.makeText(getApplicationContext(), "Event date and time can't be empty!", Toast.LENGTH_LONG).show();
                                 } else if (response.equals("NEED LOCATION")) {
                                     Toast.makeText(getApplicationContext(), "Event location can't be empty!", Toast.LENGTH_LONG).show();
+                                } else if (response.equals("NEED SEATS")){
+                                    Toast.makeText(getApplicationContext(),"Seats field can't be empty",Toast.LENGTH_LONG).show();
                                 } else {
                                     Toast.makeText(getApplicationContext(), "Event could not be updated!", Toast.LENGTH_LONG).show();
                                 }
@@ -163,6 +172,7 @@ public class EditPopUp extends Activity implements DatePickerDialog.OnDateSetLis
                                 params.put("name", eventName.getText().toString().trim());
                                 params.put("dateTime", dateTime.getText().toString().trim());
                                 params.put("location", eventLocation.getText().toString().trim());
+                                params.put("seats",eventSeats.getText().toString().trim());
                                 return params;
                             }
                         };

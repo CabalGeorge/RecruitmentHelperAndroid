@@ -63,9 +63,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                     @Override
                     public void onResponse(String response) {
                         if (response.equals("SUCCESSFUL")) {
-                            Toast.makeText(holder.attend.getContext(), "You are attending this event!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(holder.attend.getContext(), "You are now attending this event!", Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(holder.attend.getContext(), "Something went wrong!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(holder.attend.getContext(), "Already attending this event!", Toast.LENGTH_LONG).show();
                         }
                     }
                 }, new Response.ErrorListener() {

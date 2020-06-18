@@ -33,7 +33,7 @@ import java.util.Map;
 
 public class FabPopUp extends Activity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
-    EditText eventName, dateTime, eventLocation;
+    EditText eventName, dateTime, eventLocation, eventSeats;
     TextView createdBy;
     SessionManager session;
     SharedPreferences sharedPreferences;
@@ -63,6 +63,7 @@ public class FabPopUp extends Activity implements DatePickerDialog.OnDateSetList
         eventName = findViewById(R.id.eventName);
         dateTime = findViewById(R.id.datetime);
         eventLocation = findViewById(R.id.eventLocation);
+        eventSeats=findViewById(R.id.eventSeats);
 
         Button create = findViewById(R.id.btn_add);
         create.setOnClickListener(new View.OnClickListener() {
@@ -104,8 +105,10 @@ public class FabPopUp extends Activity implements DatePickerDialog.OnDateSetList
                     Toast.makeText(getApplicationContext(), "Please provide a name for your event!", Toast.LENGTH_LONG).show();
                 } else if(response.equals("NEED DATETIME")){
                     Toast.makeText(getApplicationContext(), "Please choose a date for your event!", Toast.LENGTH_LONG).show();
-                } else if(response.equals("NEED LOCATION")){
+                } else if(response.equals("NEED LOCATION")) {
                     Toast.makeText(getApplicationContext(), "Please provide a location for your event!", Toast.LENGTH_LONG).show();
+                } else if(response.equals("NEED SEATS")){
+                    Toast.makeText(getApplicationContext(), "Please provide a number of seats!",Toast.LENGTH_LONG).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -122,6 +125,7 @@ public class FabPopUp extends Activity implements DatePickerDialog.OnDateSetList
                 params.put("time", dateTime.getText().toString().trim());
                 params.put("location", eventLocation.getText().toString().trim());
                 params.put("username", createdBy.getText().toString().trim());
+                params.put("seats", eventSeats.getText().toString().trim());
                 return params;
             }
         };
@@ -156,8 +160,14 @@ public class FabPopUp extends Activity implements DatePickerDialog.OnDateSetList
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        String time = hourOfDay + ":" + minute;
-        dateTime.setText(dateTime.getText() + time);
+        if(minute<10){
+            String time = hourOfDay + ":0" + minute;
+            dateTime.setText(dateTime.getText() + time);
+        }
+        else {
+            String time = hourOfDay + ":" +minute;
+            dateTime.setText(dateTime.getText() + time);
+        }
     }
 
 
