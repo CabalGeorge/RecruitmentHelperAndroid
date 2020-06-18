@@ -1,23 +1,21 @@
 package com.example.unitbvevents.model;
 
-import java.util.Set;
+import java.util.List;
 
 public class User {
     private Integer user_id;
     private String username;
     private String password;
     private String email;
+    private List<Event> eventList;
 
-    public Set<Event> getUserEventSet() {
-        return userEventSet;
+    public List<Event> getEventList() {
+        return eventList;
     }
 
-    public void setUserEventSet(Set<Event> userEventSet) {
-        this.userEventSet = userEventSet;
+    public void setEventList(List<Event> eventList) {
+        this.eventList = eventList;
     }
-
-    private Set<Event> userEventSet;
-
 
     public String getUsername() {
 

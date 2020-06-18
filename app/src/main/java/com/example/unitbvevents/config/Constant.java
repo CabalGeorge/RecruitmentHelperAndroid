@@ -11,5 +11,6 @@ public class Constant {
     public final static String DELETE_URL=BASE_URL+"deleteEvent";
     public final static String GETEVENT_URL=BASE_URL+"getEvent";
     public final static String UPDATE_URL=BASE_URL+"updateEvent";
+    public final static String ATTEND_URL=BASE_URL+"enlistUser";
 
 }
