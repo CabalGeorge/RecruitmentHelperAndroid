@@ -36,7 +36,8 @@ import java.util.Map;
 
 public class EditPopUp extends Activity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
-    EditText eventName, dateTime, eventLocation, eventSeats;
+    EditText  eventDateTime, eventLocation, eventSeats;
+    TextView eventName;
     SessionManager sessionManager;
     SharedPreferences sharedPreferences;
 
@@ -58,11 +59,20 @@ public class EditPopUp extends Activity implements DatePickerDialog.OnDateSetLis
         sessionManager = new SessionManager(getApplicationContext());
         sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
 
+        String name=getIntent().getStringExtra("name");
+        String dateTime=getIntent().getStringExtra("dateTime");
+        String location=getIntent().getStringExtra("location");
+        String seats=getIntent().getStringExtra("seats");
 
         eventName = findViewById(R.id.eventName);
-        dateTime = findViewById(R.id.datetime);
+        eventDateTime = findViewById(R.id.datetime);
         eventLocation = findViewById(R.id.eventLocation);
         eventSeats=findViewById(R.id.eventSeats);
+
+        eventName.append(name);
+        eventDateTime.append(dateTime);
+        eventLocation.append(location);
+        eventSeats.append(seats);
 
         Button update = findViewById(R.id.btn_update);
         update.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +111,7 @@ public class EditPopUp extends Activity implements DatePickerDialog.OnDateSetLis
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         String date = dayOfMonth + "/" + month + "/" + year + " ";
-        dateTime.setText(date);
+        eventDateTime.setText(date);
     }
 
 
@@ -116,11 +126,11 @@ public class EditPopUp extends Activity implements DatePickerDialog.OnDateSetLis
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         if(minute<10){
             String time = hourOfDay + ":0" + minute;
-            dateTime.setText(dateTime.getText() + time);
+            eventDateTime.setText(eventDateTime.getText() + time);
         }
         else {
             String time = hourOfDay + ":" +minute;
-            dateTime.setText(dateTime.getText() + time);
+            eventDateTime.setText(eventDateTime.getText() + time);
         }
     }
 
@@ -170,7 +180,7 @@ public class EditPopUp extends Activity implements DatePickerDialog.OnDateSetLis
 
                                 Map<String, String> params = new HashMap<>();
                                 params.put("name", eventName.getText().toString().trim());
-                                params.put("dateTime", dateTime.getText().toString().trim());
+                                params.put("dateTime", eventDateTime.getText().toString().trim());
                                 params.put("location", eventLocation.getText().toString().trim());
                                 params.put("seats",eventSeats.getText().toString().trim());
                                 return params;

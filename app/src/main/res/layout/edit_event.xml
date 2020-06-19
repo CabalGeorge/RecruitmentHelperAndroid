@@ -21,7 +21,7 @@
 
     </ImageView>
 
-    <EditText
+    <TextView
         android:id="@+id/eventName"
         android:layout_width="336dp"
         android:layout_height="50dp"

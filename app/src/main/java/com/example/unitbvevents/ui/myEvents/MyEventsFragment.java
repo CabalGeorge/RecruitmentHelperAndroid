@@ -1,8 +1,10 @@
 package com.example.unitbvevents.ui.myEvents;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -90,5 +92,21 @@ public class MyEventsFragment extends Fragment {
 
         return root;
 
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case 0:
+                Intent intent = adapter.transferData(item.getGroupId());
+                startActivity(intent);
+                break;
+            case 1:
+                adapter.removeEvent(item.getGroupId());
+                break;
+            default:
+                return super.onContextItemSelected(item);
+        }
+        return super.onContextItemSelected(item);
     }
 }

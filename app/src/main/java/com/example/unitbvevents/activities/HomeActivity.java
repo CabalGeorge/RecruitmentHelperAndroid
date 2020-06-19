@@ -61,8 +61,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             return true;
         });
 
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_my_events, R.id.nav_attending_events)
                 .setDrawerLayout(drawer)

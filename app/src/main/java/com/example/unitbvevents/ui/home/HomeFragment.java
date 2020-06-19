@@ -2,6 +2,7 @@ package com.example.unitbvevents.ui.home;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,9 +25,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.unitbvevents.R;
+import com.example.unitbvevents.activities.HomeActivity;
 import com.example.unitbvevents.config.Adapter;
 import com.example.unitbvevents.config.Constant;
 import com.example.unitbvevents.model.Event;
+import com.example.unitbvevents.popups.EditPopUp;
+import com.example.unitbvevents.popups.FabPopUp;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -96,6 +100,8 @@ public class HomeFragment extends Fragment {
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case 0:
+                Intent intent=adapter.transferData(item.getGroupId());
+                startActivity(intent);
                 break;
             case 1:
                 adapter.removeEvent(item.getGroupId());
