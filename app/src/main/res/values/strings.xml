@@ -26,4 +26,5 @@
     <string name="enter_date_and_time">Enter date and time</string>
     <string name="enter_event_name">Enter event name</string>
     <string name="attending">Attending</string>
+    <string name="cancel_attendance">Cancel attendance</string>
 </resources>

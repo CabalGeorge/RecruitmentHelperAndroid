@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -49,6 +50,7 @@ public class HomeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
 
+
         events = new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
         String url = Constant.GETEVENTS_URL;
@@ -90,5 +92,17 @@ public class HomeFragment extends Fragment {
         return rootView;
     }
 
-
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case 0:
+                break;
+            case 1:
+                adapter.removeEvent(item.getGroupId());
+                break;
+            default:
+                return super.onContextItemSelected(item);
+        }
+        return super.onContextItemSelected(item);
+    }
 }

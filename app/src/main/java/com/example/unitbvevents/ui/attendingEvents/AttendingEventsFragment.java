@@ -86,8 +86,9 @@ public class AttendingEventsFragment extends Fragment {
                     }
                 }
 
-                adapter = new Adapter(getActivity().getApplicationContext(), enlistedEvents);
+
                 recyclerView = root.findViewById(R.id.enlistedEventsList);
+                adapter = new Adapter(getActivity().getApplicationContext(), enlistedEvents);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
                 recyclerView.setAdapter(adapter);
 

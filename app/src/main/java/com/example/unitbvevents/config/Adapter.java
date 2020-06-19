@@ -1,14 +1,17 @@
 package com.example.unitbvevents.config;
 
 import android.content.Context;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
@@ -22,6 +25,9 @@ import com.example.unitbvevents.R;
 import com.example.unitbvevents.model.Event;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +35,7 @@ import java.util.Map;
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     LayoutInflater inflater;
+    CardView cardView;
     List<Event> events;
     SessionManager sessionManager;
 
@@ -52,6 +59,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         holder.eventLocation.setText("Location: " + events.get(position).getLocation());
         holder.eventTime.setText("Date and time: " + events.get(position).getDateTime());
         holder.eventSeats.setText("Seats: " + events.get(position).getSeats());
+
         holder.attend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +97,42 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             }
         });
 
+        holder.cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = Constant.CANCEL_URL;
+                sessionManager = new SessionManager(holder.attend.getContext());
+                RequestQueue requestQueue = Volley.newRequestQueue(holder.attend.getContext());
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if (response.equals("CANCELLED")) {
+                            Toast.makeText(holder.attend.getContext(), "You have cancelled your attendance!", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(holder.attend.getContext(), "You can not cancel if you are not attending!", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(holder.attend.getContext(), "error" + error.toString(), Toast.LENGTH_LONG).show();
+
+                    }
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("username", sessionManager.getSessionUsername());
+                        params.put("name", events.get(position).getName());
+                        return params;
+                    }
+                };
+
+                requestQueue.add(stringRequest);
+            }
+        });
+
     }
 
     @Override
@@ -96,10 +140,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         return events.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         TextView eventName, eventLocation, eventTime, eventSeats;
-        Button attend;
+        Button attend, cancel;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -109,8 +153,106 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             eventTime = itemView.findViewById(R.id.txt_eventTime);
             eventSeats = itemView.findViewById(R.id.txt_eventSeats);
             attend = itemView.findViewById(R.id.btn_attend);
+            cancel=itemView.findViewById(R.id.btn_cancel);
+            cardView=itemView.findViewById(R.id.cardView);
+
+            cardView.setOnCreateContextMenuListener(this);
+
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int position=getLayoutPosition();
+                    return true;
+                }
+            });
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            menu.setHeaderTitle("Select an action");
+            menu.add(this.getAdapterPosition(),0,0,"Edit this event");
+            menu.add(this.getAdapterPosition(),1,1,"Delete this event");
+
         }
 
     }
+
+    public void removeEvent(int position){
+
+            sessionManager = new SessionManager(cardView.getContext());
+            RequestQueue requestQueue = Volley.newRequestQueue(cardView.getContext());
+
+            String urlGet = Constant.GETEVENT_URL;
+            StringRequest stringRequestGet = new StringRequest(Request.Method.POST, urlGet, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+
+                        JSONObject jsonObject = new JSONObject(response);
+
+                        if (jsonObject.getString("createdBy").equals(sessionManager.getSessionUsername())) {
+
+
+                            String urlDelete = Constant.DELETE_URL;
+                            StringRequest stringRequestDelete = new StringRequest(Request.Method.POST, urlDelete, new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    if (response.equals("SUCCESSFUL")) {
+                                        Toast.makeText(cardView.getContext(), "Event successfully deleted!", Toast.LENGTH_LONG).show();
+                                    } else if (response.equals("FAILED")) {
+                                        Toast.makeText(cardView.getContext(), "Event could not be deleted!", Toast.LENGTH_LONG).show();
+                                    } else if (response.equals("NO NAME")) {
+                                        Toast.makeText(cardView.getContext(), "No event with this name!", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Toast.makeText(cardView.getContext(), "error" + error.toString(), Toast.LENGTH_LONG).show();
+                                }
+                            }) {
+                                @Override
+                                protected Map<String, String> getParams() throws AuthFailureError {
+
+                                    Map<String, String> params = new HashMap<>();
+                                    params.put("name", events.get(position).getName());
+                                    return params;
+                                }
+                            };
+
+                            requestQueue.add(stringRequestDelete);
+                            notifyDataSetChanged();
+                        } else {
+                            Toast.makeText(cardView.getContext(), "You are not allowed to delete this event", Toast.LENGTH_LONG).show();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(cardView.getContext(), "error" + error.toString(), Toast.LENGTH_LONG).show();
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+
+                    Map<String, String> params = new HashMap<>();
+                    params.put("name", events.get(position).getName());
+                    return params;
+                }
+            };
+
+            requestQueue.add(stringRequestGet);
+
+
+    }
+
+
+
 
 }
