@@ -20,7 +20,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.unitbvevents.R;
 import com.example.unitbvevents.config.SessionManager;
-import com.example.unitbvevents.popups.EditPopUp;
 import com.example.unitbvevents.popups.FabPopUp;
 import com.example.unitbvevents.popups.DeletePopUp;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -63,7 +62,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_my_events, R.id.nav_attending_events)
+                R.id.nav_home, R.id.nav_my_events, R.id.nav_attending_events,R.id.nav_reports)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -102,10 +101,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
             }
 
-            case R.id.action_edit:{
-                startActivity(new Intent(HomeActivity.this, EditPopUp.class));
-                break;
-            }
 
             default:
                 return super.onOptionsItemSelected(item);

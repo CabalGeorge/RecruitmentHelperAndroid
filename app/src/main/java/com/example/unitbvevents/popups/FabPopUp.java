@@ -24,14 +24,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.unitbvevents.R;
+import com.example.unitbvevents.activities.EventsActivity;
 import com.example.unitbvevents.config.Constant;
 import com.example.unitbvevents.config.SessionManager;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FabPopUp extends Activity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class FabPopUp extends Activity {
 
     EditText eventName, dateTime, eventLocation, eventSeats;
     TextView createdBy;
@@ -76,16 +78,10 @@ public class FabPopUp extends Activity implements DatePickerDialog.OnDateSetList
         findViewById(R.id.btn_date_picker).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePicker();
+                showDateTimeDialog(dateTime);
             }
         });
 
-        findViewById(R.id.btn_time_picker).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTimePicker();
-            }
-        });
 
     }
 
@@ -135,40 +131,35 @@ public class FabPopUp extends Activity implements DatePickerDialog.OnDateSetList
     }
 
 
-    private void showDatePicker() {
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,R.style.DialogTheme, this,
-                Calendar.getInstance().get(Calendar.YEAR),
-                Calendar.getInstance().get(Calendar.MONTH),
-                Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.show();
+    private void showDateTimeDialog(EditText dateTime) {
+        final Calendar calendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        calendar.set(Calendar.MINUTE, minute);
+
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/YYYY HH:mm");
+
+                        dateTime.setText(simpleDateFormat.format(calendar.getTime()));
+                    }
+                };
+
+                new TimePickerDialog(FabPopUp.this,R.style.DialogTheme, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
+            }
+        };
+
+        new DatePickerDialog(FabPopUp.this,R.style.DialogTheme, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+
     }
 
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String date = dayOfMonth + "/" + month + "/" + year + " ";
-        dateTime.setText(date);
-    }
-
-
-    private void showTimePicker() {
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this,R.style.DialogTheme, this,
-                Calendar.getInstance().get(Calendar.HOUR),
-                Calendar.getInstance().get(Calendar.MINUTE), true);
-        timePickerDialog.show();
-    }
-
-    @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        if(minute<10){
-            String time = hourOfDay + ":0" + minute;
-            dateTime.setText(dateTime.getText() + time);
-        }
-        else {
-            String time = hourOfDay + ":" +minute;
-            dateTime.setText(dateTime.getText() + time);
-        }
-    }
 
 
 }

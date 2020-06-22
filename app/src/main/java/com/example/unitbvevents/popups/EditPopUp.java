@@ -30,11 +30,12 @@ import com.example.unitbvevents.config.SessionManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EditPopUp extends Activity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class EditPopUp extends Activity {
 
     EditText  eventDateTime, eventLocation, eventSeats;
     TextView eventName;
@@ -59,15 +60,15 @@ public class EditPopUp extends Activity implements DatePickerDialog.OnDateSetLis
         sessionManager = new SessionManager(getApplicationContext());
         sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
 
-        String name=getIntent().getStringExtra("name");
-        String dateTime=getIntent().getStringExtra("dateTime");
-        String location=getIntent().getStringExtra("location");
-        String seats=getIntent().getStringExtra("seats");
+        String name = getIntent().getStringExtra("name");
+        String dateTime = getIntent().getStringExtra("dateTime");
+        String location = getIntent().getStringExtra("location");
+        String seats = getIntent().getStringExtra("seats");
 
         eventName = findViewById(R.id.eventName);
         eventDateTime = findViewById(R.id.datetime);
         eventLocation = findViewById(R.id.eventLocation);
-        eventSeats=findViewById(R.id.eventSeats);
+        eventSeats = findViewById(R.id.eventSeats);
 
         eventName.append(name);
         eventDateTime.append(dateTime);
@@ -86,52 +87,9 @@ public class EditPopUp extends Activity implements DatePickerDialog.OnDateSetLis
         findViewById(R.id.btn_date_picker).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePicker();
+                showDateTimeDialog(eventDateTime);
             }
         });
-
-        findViewById(R.id.btn_time_picker).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTimePicker();
-            }
-        });
-
-    }
-
-    private void showDatePicker() {
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.DialogTheme, this,
-                Calendar.getInstance().get(Calendar.YEAR),
-                Calendar.getInstance().get(Calendar.MONTH),
-                Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.show();
-    }
-
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String date = dayOfMonth + "/" + month + "/" + year + " ";
-        eventDateTime.setText(date);
-    }
-
-
-    private void showTimePicker() {
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, R.style.DialogTheme, this,
-                Calendar.getInstance().get(Calendar.HOUR),
-                Calendar.getInstance().get(Calendar.MINUTE), true);
-        timePickerDialog.show();
-    }
-
-    @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        if(minute<10){
-            String time = hourOfDay + ":0" + minute;
-            eventDateTime.setText(eventDateTime.getText() + time);
-        }
-        else {
-            String time = hourOfDay + ":" +minute;
-            eventDateTime.setText(eventDateTime.getText() + time);
-        }
     }
 
 
@@ -213,6 +171,35 @@ public class EditPopUp extends Activity implements DatePickerDialog.OnDateSetLis
         };
 
         requestQueue.add(stringRequestGet);
+
+    }
+
+    private void showDateTimeDialog(EditText eventDateTime) {
+        final Calendar calendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        calendar.set(Calendar.MINUTE, minute);
+
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/YYYY HH:mm");
+
+                        eventDateTime.setText(simpleDateFormat.format(calendar.getTime()));
+                    }
+                };
+
+                new TimePickerDialog(EditPopUp.this,R.style.DialogTheme, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
+            }
+        };
+
+        new DatePickerDialog(EditPopUp.this,R.style.DialogTheme, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
 
     }
 }

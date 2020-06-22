@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#552586">
+    android:background="@mipmap/fundal">
 
 
     <ImageView
@@ -164,17 +164,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.448" />
 
-    <Button
-        android:id="@+id/btn_time_picker"
-        android:layout_width="28dp"
-        android:layout_height="25dp"
-        android:background="@drawable/ic_baseline_access_time_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.955"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.448" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -139,14 +139,4 @@ public class RegisterActivity extends AppCompatActivity {
         return TextUtils.isEmpty(charSequence);
     }
 
-    private void checkEnteredData() {
-
-        if (isEmpty(username)) {
-            Toast.makeText(getApplicationContext(), "Please enter an username", Toast.LENGTH_LONG).show();
-        }
-        if (isEmpty(email)) {
-            Toast.makeText(getApplicationContext(), "Please enter an email", Toast.LENGTH_LONG).show();
-        }
-
-    }
 }

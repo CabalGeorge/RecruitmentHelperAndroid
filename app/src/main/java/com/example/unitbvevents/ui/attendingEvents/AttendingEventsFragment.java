@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -58,13 +57,6 @@ public class AttendingEventsFragment extends Fragment {
         enlistedEvents = new ArrayList<>();
         sessionManager = new SessionManager(getActivity().getApplicationContext());
 
-        JSONArray jsonArray=new JSONArray();
-        JSONObject jsonObject=new JSONObject();
-        try {
-            jsonObject.put("username",sessionManager.getSessionUsername());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());

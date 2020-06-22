@@ -14,5 +14,6 @@ public class Constant {
     public final static String ATTEND_URL=BASE_URL+"enlistUser";
     public final static String CANCEL_URL=BASE_URL+"cancelAttend";
     public final static String ENLISTED_URL=BASE_URL+"enlistedEvents?username=";
+    public final static String GETUSERS_URL=BASE_URL+"getAll";
 
 }

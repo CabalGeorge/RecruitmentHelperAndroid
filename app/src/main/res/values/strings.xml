@@ -27,4 +27,9 @@
     <string name="enter_event_name">Enter event name</string>
     <string name="attending">Attending</string>
     <string name="cancel_attendance">Cancel attendance</string>
+    <string name="reports">Reports</string>
+    <string name="see_events_between_dates">See events between dates</string>
+    <string name="enter_end_date">Enter end date</string>
+    <string name="enter_start_date">Enter start date</string>
+    <string name="generate">Generate</string>
 </resources>

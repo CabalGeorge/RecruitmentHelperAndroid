@@ -2,55 +2,21 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/AppTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/fundal">
-
-
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="169dp"
-        android:layout_height="105dp"
-        android:src="@mipmap/logow"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.086">
-
-    </ImageView>
-
-    <TextView
-        android:id="@+id/eventName"
-        android:layout_width="336dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="43dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="Enter name of event to edit"
-        android:inputType="text"
-        android:paddingLeft="15dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.352" />
+    tools:context=".activities.EventsActivity">
 
     <EditText
-        android:id="@+id/datetime"
-        android:layout_width="336dp"
+        android:id="@+id/startDate"
+        android:layout_width="380dp"
         android:layout_height="50dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="43dp"
+        android:background="@color/colorPurple"
         android:ems="10"
         android:gravity="center"
-        android:hint="Enter date and time"
+        android:hint="@string/enter_start_date"
         android:inputType="datetime"
         android:paddingLeft="15dp"
         android:textColor="#FFFFFF"
@@ -61,18 +27,19 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.449" />
+        app:layout_constraintVertical_bias="0.043" />
 
     <EditText
-        android:id="@+id/eventLocation"
-        android:layout_width="336dp"
+        android:id="@+id/endDate"
+        android:layout_width="380dp"
         android:layout_height="50dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="43dp"
+        android:background="@color/colorPurple"
         android:ems="10"
         android:gravity="center"
-        android:hint="Enter event location"
-        android:inputType="text"
+        android:hint="@string/enter_end_date"
+        android:inputType="datetime"
         android:paddingLeft="15dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
@@ -82,70 +49,83 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.541" />
-
-
-    <EditText
-        android:id="@+id/eventSeats"
-        android:layout_width="336dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="43dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="Enter event number of seats"
-        android:inputType="text"
-        android:paddingLeft="15dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.62" />
+        app:layout_constraintVertical_bias="0.126" />
 
     <Button
-        android:id="@+id/btn_update"
+        android:id="@+id/btn_generate"
         android:layout_width="100dp"
         android:layout_height="40dp"
-        android:background="?android:attr/selectableItemBackground"
+        android:background="@color/colorPurple"
+        android:backgroundTint="@color/colorPurple"
         android:gravity="center"
-        android:text="Update"
+        android:text="@string/generate"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="19dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.826" />
+        app:layout_constraintVertical_bias="0.209" />
+
+    <TextView
+        android:id="@+id/eventsNumber"
+        android:layout_width="380dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="43dp"
+        android:background="@color/colorPurple"
+        android:ems="10"
+        android:gravity="center"
+        android:paddingLeft="15dp"
+        android:text="Events:"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.278" />
+
 
     <Button
-        android:id="@+id/btn_date_picker"
+        android:id="@+id/btn_date_picker_start"
         android:layout_width="28dp"
         android:layout_height="25dp"
         android:background="@drawable/ic_baseline_calendar_today_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.854"
+        app:layout_constraintHorizontal_bias="0.931"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.448" />
+        app:layout_constraintVertical_bias="0.061" />
+
 
     <Button
-        android:id="@+id/btn_time_picker"
+        android:id="@+id/btn_date_picker_end"
         android:layout_width="28dp"
         android:layout_height="25dp"
-        android:background="@drawable/ic_baseline_access_time_24"
+        android:background="@drawable/ic_baseline_calendar_today_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintHorizontal_bias="0.931"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.448" />
+        app:layout_constraintVertical_bias="0.143" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchedEvents"
+        android:layout_width="386dp"
+        android:layout_height="434dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
