@@ -24,7 +24,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.unitbvevents.R;
-import com.example.unitbvevents.activities.EventsActivity;
 import com.example.unitbvevents.config.Constant;
 import com.example.unitbvevents.config.SessionManager;
 

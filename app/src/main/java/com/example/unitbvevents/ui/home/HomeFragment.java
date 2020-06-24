@@ -1,7 +1,5 @@
 package com.example.unitbvevents.ui.home;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +11,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,12 +22,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.unitbvevents.R;
-import com.example.unitbvevents.activities.HomeActivity;
 import com.example.unitbvevents.config.Adapter;
 import com.example.unitbvevents.config.Constant;
 import com.example.unitbvevents.model.Event;
-import com.example.unitbvevents.popups.EditPopUp;
-import com.example.unitbvevents.popups.FabPopUp;
 
 import org.json.JSONArray;
 import org.json.JSONException;

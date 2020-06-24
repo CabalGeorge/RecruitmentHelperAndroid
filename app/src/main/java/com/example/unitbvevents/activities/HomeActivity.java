@@ -20,8 +20,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.unitbvevents.R;
 import com.example.unitbvevents.config.SessionManager;
-import com.example.unitbvevents.popups.FabPopUp;
 import com.example.unitbvevents.popups.DeletePopUp;
+import com.example.unitbvevents.popups.FabPopUp;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 

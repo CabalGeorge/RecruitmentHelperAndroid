@@ -6,9 +6,7 @@ import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +24,6 @@ import com.android.volley.toolbox.Volley;
 import com.example.unitbvevents.R;
 import com.example.unitbvevents.model.Event;
 import com.example.unitbvevents.popups.EditPopUp;
-
 
 import org.json.JSONException;
 import org.json.JSONObject;

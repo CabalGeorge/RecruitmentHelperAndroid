@@ -73,49 +73,53 @@ public class DeletePopUp extends Activity {
         StringRequest stringRequestGet = new StringRequest(Request.Method.POST, urlGet, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                try {
+                if(!response.isEmpty()) {
+                    try {
 
-                    JSONObject jsonObject = new JSONObject(response);
+                        JSONObject jsonObject = new JSONObject(response);
 
-                    if (jsonObject.getString("createdBy").equals(sessionManager.getSessionUsername())) {
+                        if (jsonObject.getString("createdBy").equals(sessionManager.getSessionUsername())) {
 
 
-                        String urlDelete = Constant.DELETE_URL;
-                        StringRequest stringRequestDelete = new StringRequest(Request.Method.POST, urlDelete, new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                if (response.equals("SUCCESSFUL")) {
-                                    Toast.makeText(getApplicationContext(), "Event successfully deleted!", Toast.LENGTH_LONG).show();
-                                } else if (response.equals("FAILED")) {
-                                    Toast.makeText(getApplicationContext(), "Event could not be deleted!", Toast.LENGTH_LONG).show();
-                                } else if (response.equals("NO NAME")) {
-                                    Toast.makeText(getApplicationContext(), "No event with this name!", Toast.LENGTH_LONG).show();
+                            String urlDelete = Constant.DELETE_URL;
+                            StringRequest stringRequestDelete = new StringRequest(Request.Method.POST, urlDelete, new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    if (response.equals("SUCCESSFUL")) {
+                                        Toast.makeText(getApplicationContext(), "Event successfully deleted!", Toast.LENGTH_LONG).show();
+                                    } else if (response.equals("FAILED")) {
+                                        Toast.makeText(getApplicationContext(), "Event could not be deleted!", Toast.LENGTH_LONG).show();
+                                    } else if (response.equals("NO NAME")) {
+                                        Toast.makeText(getApplicationContext(), "No event with this name!", Toast.LENGTH_LONG).show();
+                                    }
                                 }
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(getApplicationContext(), "error" + error.toString(), Toast.LENGTH_LONG).show();
-                            }
-                        }) {
-                            @Override
-                            protected Map<String, String> getParams() throws AuthFailureError {
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Toast.makeText(getApplicationContext(), "error" + error.toString(), Toast.LENGTH_LONG).show();
+                                }
+                            }) {
+                                @Override
+                                protected Map<String, String> getParams() throws AuthFailureError {
 
-                                Map<String, String> params = new HashMap<>();
-                                params.put("name", eventName.getText().toString().trim());
-                                return params;
-                            }
-                        };
+                                    Map<String, String> params = new HashMap<>();
+                                    params.put("name", eventName.getText().toString().trim());
+                                    return params;
+                                }
+                            };
 
-                        requestQueue.add(stringRequestDelete);
-                    } else {
-                        Toast.makeText(getApplicationContext(), "You are not allowed to delete this event", Toast.LENGTH_LONG).show();
+                            requestQueue.add(stringRequestDelete);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "You are not allowed to delete this event", Toast.LENGTH_LONG).show();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                }else
+                {
+                    Toast.makeText(getApplicationContext(), "Please enter a name", Toast.LENGTH_LONG).show();
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
