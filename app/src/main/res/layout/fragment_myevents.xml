@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.myEvents.MyEventsFragment">
+    tools:context="com.example.recruitmenthelper.ui.myEvents.MyEventsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/myEventsList"

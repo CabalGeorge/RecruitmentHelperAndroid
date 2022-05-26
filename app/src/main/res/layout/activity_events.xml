@@ -5,7 +5,7 @@
     android:theme="@style/AppTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.EventsActivity">
+    tools:context="com.example.recruitmenthelper.activities.EventsActivity">
 
     <EditText
         android:id="@+id/startDate"
@@ -69,10 +69,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.209" />
 
+
     <TextView
         android:id="@+id/eventsNumber"
-        android:layout_width="380dp"
-        android:layout_height="50dp"
+        android:layout_width="376dp"
+        android:layout_height="68dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="43dp"
         android:background="@color/colorPurple"
@@ -85,11 +86,10 @@
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.534"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.278" />
-
+        app:layout_constraintVertical_bias="0.309" />
 
     <Button
         android:id="@+id/btn_date_picker_start"
@@ -118,8 +118,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/searchedEvents"
-        android:layout_width="386dp"
-        android:layout_height="434dp"
+        android:layout_width="387dp"
+        android:layout_height="406dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

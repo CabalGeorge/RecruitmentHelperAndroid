@@ -7,23 +7,23 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.unitbvevents.ui.home.HomeFragment"
+        android:name="com.example.recruitmenthelper.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_my_events"
-        android:name="com.example.unitbvevents.ui.myEvents.MyEventsFragment"
+        android:name="com.example.recruitmenthelper.ui.myEvents.MyEventsFragment"
         android:label="@string/my_events"
         tools:layout="@layout/fragment_myevents" />
     <fragment
         android:id="@+id/nav_attending_events"
-        android:name="com.example.unitbvevents.ui.attendingEvents.AttendingEventsFragment"
+        android:name="com.example.recruitmenthelper.ui.attendingEvents.AttendingEventsFragment"
         android:label="Attending Events"
         tools:layout="@layout/fragment_enlisted_events" />
     <fragment
         android:id="@+id/nav_reports"
-        android:name="com.example.unitbvevents.ui.reports.ReportsFragment"
+        android:name="com.example.recruitmenthelper.ui.reports.ReportsFragment"
         android:label="Reports"
         tools:layout="@layout/fragment_reports" />
 

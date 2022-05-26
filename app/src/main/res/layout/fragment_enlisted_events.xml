@@ -4,7 +4,7 @@
     android:id="@+id/attending_events"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.attendingEvents.AttendingEventsFragment">
+    tools:context="com.example.recruitmenthelper.ui.attendingEvents.AttendingEventsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/enlistedEventsList"
