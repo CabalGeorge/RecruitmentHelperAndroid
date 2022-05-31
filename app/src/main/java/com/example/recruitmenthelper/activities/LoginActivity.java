@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -33,43 +31,33 @@ public class LoginActivity extends AppCompatActivity {
     EditText email, password;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         Button btn_login = findViewById(R.id.login);
-        Button btn_register = findViewById(R.id.register);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
 
         CheckBox box = findViewById(R.id.checkPass);
 
-        btn_login.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View v) {
+        btn_login.setOnClickListener(v -> {
+            if (email.getText().toString().equals("")) {
+                Toast.makeText(getApplicationContext(), "Please provide an email address!", Toast.LENGTH_LONG).show();
+            } else if (password.getText().toString().equals("")) {
+                Toast.makeText(getApplicationContext(), "Please provide a password!", Toast.LENGTH_LONG).show();
+            } else {
                 Login();
             }
         });
 
-        btn_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openRegisterActivity();
-            }
-
-        });
-
-        box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-
-                if (checked) {
-                    password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                } else {
-                    password.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD | InputType.TYPE_CLASS_TEXT);
-                }
+        box.setOnCheckedChangeListener((compoundButton, checked) -> {
+            if (checked) {
+                password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            } else {
+                password.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD | InputType.TYPE_CLASS_TEXT);
             }
         });
     }
@@ -98,7 +86,6 @@ public class LoginActivity extends AppCompatActivity {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object, response -> {
             try {
                 if (!response.getString("jwt").isEmpty()) {
-
                     try {
                         User user = JWTDecoder.getUserFromToken(response.getString("jwt"));
                         SessionManager sessionManager = new SessionManager(LoginActivity.this);
@@ -107,25 +94,15 @@ public class LoginActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    moveToHomeActivity();
                     Toast.makeText(getApplicationContext(), "Login successful!", Toast.LENGTH_LONG).show();
+                    moveToHomeActivity();
                 } else {
                     Toast.makeText(getApplicationContext(), "Login credentials wrong!", Toast.LENGTH_LONG).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-
-        }, error -> Toast.makeText(getApplicationContext(), "error" + error.toString(), Toast.LENGTH_LONG).show()) {
-//            @Override
-//            protected Map<String, String> getParams() {
-//
-//                Map<String, String> params = new HashMap<String, String>();
-//                params.put("username", email.getText().toString().trim());
-//                params.put("password", password.getText().toString().trim());
-//                return params;
-//            }
+        }, error -> Toast.makeText(getApplicationContext(), "Login credentials wrong!", Toast.LENGTH_LONG).show()) {
         };
         requestQueue.add(jsonObjectRequest);
 
@@ -144,12 +121,6 @@ public class LoginActivity extends AppCompatActivity {
             moveToHomeActivity();
         }
     }
-
-    public void openRegisterActivity() {
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
-    }
-
 
 }
 

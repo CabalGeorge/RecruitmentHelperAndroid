@@ -1,4 +1,4 @@
-package com.example.unitbvevents;
+package com.example.recruitmenthelper;
 
 import org.junit.Test;
 

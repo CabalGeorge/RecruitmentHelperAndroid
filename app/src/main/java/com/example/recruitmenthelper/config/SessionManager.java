@@ -13,6 +13,7 @@ public class SessionManager {
     private static final String SHARED_PREF_NAME = "session";
     public static final String KEY_NAME = "username";
     public static final String KEY_EMAIL = "email";
+    public static final String KEY_ROLE = "role";
 
 
     public SessionManager(Context context) {
@@ -25,9 +26,11 @@ public class SessionManager {
 
         String username = user.getUsername();
         String email = user.getEmail();
+        String role = user.getRole();
 
         editor.putString(KEY_NAME, username).commit();
         editor.putString(KEY_EMAIL, email).commit();
+        editor.putString(KEY_ROLE, role).commit();
 
     }
 
@@ -40,11 +43,17 @@ public class SessionManager {
         return sharedPreferences.getString(KEY_EMAIL, null);
     }
 
+    public String getSessionRole() {
+
+        return sharedPreferences.getString(KEY_ROLE, null);
+    }
+
 
     public void removeSession() {
 
         editor.putString(KEY_NAME, null).commit();
         editor.putString(KEY_EMAIL, null).commit();
+        editor.putString(KEY_ROLE, null).commit();
     }
 
 }

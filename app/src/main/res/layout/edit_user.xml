@@ -10,7 +10,7 @@
         android:id="@+id/logo"
         android:layout_width="169dp"
         android:layout_height="105dp"
-        android:src="@mipmap/logow"
+        android:src="@mipmap/rh"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -21,14 +21,14 @@
     </ImageView>
 
     <EditText
-        android:id="@+id/eventName"
+        android:id="@+id/editUsername"
         android:layout_width="336dp"
         android:layout_height="50dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="43dp"
         android:ems="10"
         android:gravity="center"
-        android:hint="@string/enter_event_name"
+        android:hint="Enter name of user"
         android:inputType="text"
         android:paddingLeft="15dp"
         android:textColor="#FFFFFF"
@@ -42,15 +42,15 @@
         app:layout_constraintVertical_bias="0.352" />
 
     <EditText
-        android:id="@+id/datetime"
+        android:id="@+id/editEmail"
         android:layout_width="336dp"
         android:layout_height="50dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="43dp"
         android:ems="10"
         android:gravity="center"
-        android:hint="@string/enter_date_and_time"
-        android:inputType="datetime"
+        android:hint="Enter email"
+        android:inputType="text"
         android:paddingLeft="15dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
@@ -62,107 +62,45 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.449" />
 
-    <EditText
-        android:id="@+id/eventLocation"
+
+    <Spinner
+        android:id="@+id/editRole"
         android:layout_width="336dp"
         android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="43dp"
         android:ems="10"
         android:gravity="center"
-        android:hint="@string/enter_event_location"
+        android:hint="@string/enter_role"
         android:inputType="text"
         android:paddingLeft="15dp"
+        android:popupBackground="@mipmap/fundal"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.912"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.541" />
-
-    <EditText
-        android:id="@+id/eventSeats"
-        android:layout_width="336dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="43dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="@string/enter_event_number_of_seats"
-        android:inputType="text"
-        android:paddingLeft="15dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.627" />
-
-    <TextView
-        android:id="@+id/creator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="USER"
-        android:textColor="#FFFFFF"
-        android:textSize="18dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.794">
-
-    </TextView>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Created by:"
-        android:textColor="#FFFFFF"
-        android:textSize="18dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.731">
-
-    </TextView>
+        app:layout_constraintVertical_bias="0.553" />
 
     <Button
-        android:id="@+id/btn_add"
+        android:id="@+id/btn_update"
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:background="?android:attr/selectableItemBackground"
         android:gravity="center"
-        android:text="Create"
+        android:text="Update"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="19dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.917" />
+        app:layout_constraintVertical_bias="0.826" />
 
-    <Button
-        android:id="@+id/btn_date_picker"
-        android:layout_width="28dp"
-        android:layout_height="25dp"
-        android:background="@drawable/ic_baseline_calendar_today_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.854"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.448" />
-
+    
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

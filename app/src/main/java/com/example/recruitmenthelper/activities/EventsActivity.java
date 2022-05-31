@@ -27,7 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.recruitmenthelper.config.Adapter;
+import com.example.recruitmenthelper.config.UserAdapter;
 import com.example.recruitmenthelper.config.Constant;
 import com.example.recruitmenthelper.model.Event;
 import com.example.recruitmenthelper.R;
@@ -52,7 +52,7 @@ public class EventsActivity extends AppCompatActivity{
     Button generate, datePickerStart, datePickerEnd;
     RecyclerView recyclerView;
     List<Event> events;
-    Adapter adapter;
+    UserAdapter userAdapter;
     SessionManager sessionManager;
     double totalSeats,occupiedSeats;
 
@@ -86,84 +86,84 @@ public class EventsActivity extends AppCompatActivity{
             }
         });
 
-        generate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(dateTimeStart.getText().toString().isEmpty()||dateTimeEnd.getText().toString().isEmpty()){
-                    Toast.makeText(EventsActivity.this,"Start date and end date can not be empty ",Toast.LENGTH_LONG).show();
-                }
-                else {
-                    getSearchedEvents(dateTimeStart,dateTimeEnd);
-                }
-            }
-        });
+//        generate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                if(dateTimeStart.getText().toString().isEmpty()||dateTimeEnd.getText().toString().isEmpty()){
+//                    Toast.makeText(EventsActivity.this,"Start date and end date can not be empty ",Toast.LENGTH_LONG).show();
+//                }
+//                else {
+//                    getSearchedEvents(dateTimeStart,dateTimeEnd);
+//                }
+//            }
+//        });
 
 
 
     }
 
-    private void getSearchedEvents(EditText startDate, EditText endDate){
-
-
-        events = new ArrayList<>();
-        sessionManager = new SessionManager(EventsActivity.this);
-        RequestQueue requestQueue = Volley.newRequestQueue(EventsActivity.this);
-        String url = Constant.GETEVENTS_URL;
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onResponse(JSONArray response) {
-
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        JSONObject eventObject = response.getJSONObject(i);
-
-                        Event event = new Event();
-                        event.setName(eventObject.getString("name"));
-                        event.setLocation(eventObject.getString("location"));
-                        event.setDateTime(eventObject.getString("dateTime"));
-                        event.setSeats(eventObject.getString("seats"));
-
-                        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-                        String start=startDate.getText().toString().trim();
-                        String end=endDate.getText().toString().trim();
-                        String provided=eventObject.getString("dateTime");
-                        LocalDateTime startingDate=LocalDateTime.parse(start,formatter);
-                        LocalDateTime endingDate=LocalDateTime.parse(end,formatter);
-                        LocalDateTime providedDate=LocalDateTime.parse(provided,formatter);
-
-                        if(providedDate.compareTo(startingDate)>0&&providedDate.compareTo(endingDate)<0){
-                            events.add(event);
-                            JSONArray jsonArray=eventObject.getJSONArray("userList");
-                            occupiedSeats=occupiedSeats+jsonArray.length();
-                            totalSeats=totalSeats+Integer.parseInt(eventObject.getString("seats"))+occupiedSeats;
-                            eventsNumber.setText("Events: " +String.valueOf(events.size())+"\n"+ "    Attendance: "+String.format("%.2f",occupiedSeats/totalSeats*100)+"%");
-
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-
-                recyclerView = findViewById(R.id.searchedEvents);
-                adapter = new Adapter(EventsActivity.this, events);
-                recyclerView.setLayoutManager(new LinearLayoutManager(EventsActivity.this));
-                recyclerView.setAdapter(adapter);
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("tag", "onErrorResponse" + error.getMessage());
-            }
-        }) {
-
-        };
-
-        requestQueue.add(jsonArrayRequest);
-    }
+//    private void getSearchedEvents(EditText startDate, EditText endDate){
+//
+//
+//        events = new ArrayList<>();
+//        sessionManager = new SessionManager(EventsActivity.this);
+//        RequestQueue requestQueue = Volley.newRequestQueue(EventsActivity.this);
+//        String url = Constant.GETEVENTS_URL;
+//        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+//            @RequiresApi(api = Build.VERSION_CODES.O)
+//            @Override
+//            public void onResponse(JSONArray response) {
+//
+//                for (int i = 0; i < response.length(); i++) {
+//                    try {
+//                        JSONObject eventObject = response.getJSONObject(i);
+//
+//                        Event event = new Event();
+//                        event.setName(eventObject.getString("name"));
+//                        event.setLocation(eventObject.getString("location"));
+//                        event.setDateTime(eventObject.getString("dateTime"));
+//                        event.setSeats(eventObject.getString("seats"));
+//
+//                        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+//                        String start=startDate.getText().toString().trim();
+//                        String end=endDate.getText().toString().trim();
+//                        String provided=eventObject.getString("dateTime");
+//                        LocalDateTime startingDate=LocalDateTime.parse(start,formatter);
+//                        LocalDateTime endingDate=LocalDateTime.parse(end,formatter);
+//                        LocalDateTime providedDate=LocalDateTime.parse(provided,formatter);
+//
+//                        if(providedDate.compareTo(startingDate)>0&&providedDate.compareTo(endingDate)<0){
+//                            events.add(event);
+//                            JSONArray jsonArray=eventObject.getJSONArray("userList");
+//                            occupiedSeats=occupiedSeats+jsonArray.length();
+//                            totalSeats=totalSeats+Integer.parseInt(eventObject.getString("seats"))+occupiedSeats;
+//                            eventsNumber.setText("Events: " +String.valueOf(events.size())+"\n"+ "    Attendance: "+String.format("%.2f",occupiedSeats/totalSeats*100)+"%");
+//
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//
+//
+//                recyclerView = findViewById(R.id.searchedEvents);
+//                userAdapter = new UserAdapter(EventsActivity.this, events);
+//                recyclerView.setLayoutManager(new LinearLayoutManager(EventsActivity.this));
+//                recyclerView.setAdapter(userAdapter);
+//
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.d("tag", "onErrorResponse" + error.getMessage());
+//            }
+//        }) {
+//
+//        };
+//
+//        requestQueue.add(jsonArrayRequest);
+//    }
 
     private void showDateTimeDialogStart(EditText dateTimeStart) {
         final Calendar calendar = Calendar.getInstance();
@@ -228,12 +228,12 @@ public class EventsActivity extends AppCompatActivity{
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case 0:
-                Intent intent=adapter.transferData(item.getGroupId());
+                Intent intent= userAdapter.transferData(item.getGroupId());
                 startActivity(intent);
                 break;
-            case 1:
-                adapter.removeEvent(item.getGroupId());
-                break;
+//            case 1:
+//                userAdapter.removeEvent(item.getGroupId());
+//                break;
             default:
                 return super.onContextItemSelected(item);
         }

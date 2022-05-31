@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -64,129 +65,129 @@ public class ReportsFragment extends Fragment {
 
         barChart = root.findViewById(R.id.barChart);
 
-        eventsList = new ArrayList<>();
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        String urlEvents = Constant.GETEVENTS_URL;
-        JsonArrayRequest jsonArrayRequestEvents = new JsonArrayRequest(Request.Method.GET, urlEvents, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        JSONObject eventObject = response.getJSONObject(i);
-
-                        Event event = new Event();
-                        event.setName(eventObject.getString("name"));
-                        event.setSeats(eventObject.getString("seats"));
-                        eventsList.add(event);
-                        JSONArray jsonArray = eventObject.getJSONArray("userList");
-                        occupiedSeats = occupiedSeats + jsonArray.length();
-                        totalSeats = totalSeats + Double.parseDouble(eventObject.getString("seats")) + occupiedSeats;
-                        events.setText(String.valueOf(eventsList.size()));
-                        attendants.setText(String.valueOf(occupiedSeats / totalSeats * 100));
-
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-
-                usersList = new ArrayList<>();
-                String urlUsers = Constant.GETUSERS_URL;
-                JsonArrayRequest jsonArrayRequestUsers = new JsonArrayRequest(Request.Method.GET, urlUsers, null, new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-
-                        for (int i = 0; i < response.length(); i++) {
-                            try {
-                                JSONObject eventObject = response.getJSONObject(i);
-
-                                User user = new User();
-                                user.setUsername(eventObject.getString("username"));
-                                usersList.add(user);
-                                users.setText(String.valueOf(usersList.size()));
-
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-
-
-                        int[] colorClassArray = {getResources().getColor(R.color.chartColorRed), getResources().getColor(R.color.chartColorBlue), getResources().getColor(R.color.chartColorYellow)};
-
-                        Legend legend = barChart.getLegend();
-                        legend.setEnabled(true);
-                        legend.setTextSize(15);
-                        legend.setForm(Legend.LegendForm.SQUARE);
-                        legend.setFormSize(10f);
-                        legend.setXEntrySpace(15);
-                        legend.setFormToTextSpace(10);
-
-                        LegendEntry[] legendEntries = new LegendEntry[3];
-                        for (int index = 0; index < legendEntries.length; index++) {
-                            LegendEntry entry = new LegendEntry();
-                            entry.formColor = colorClassArray[index];
-                            entry.label = String.valueOf(legendName[index]);
-                            legendEntries[index] = entry;
-                        }
-                        legend.setCustom(legendEntries);
-                        eventsNumber = Float.parseFloat(events.getText().toString());
-                        usersNumber = Float.parseFloat(users.getText().toString());
-                        attendance = Float.parseFloat(attendants.getText().toString());
-                        ArrayList<BarEntry> barEntries = new ArrayList<>();
-                        barEntries.add(new BarEntry(0, eventsNumber));
-                        barEntries.add(new BarEntry(1, usersNumber));
-                        barEntries.add(new BarEntry(2, attendance));
-
-                        BarDataSet barDataSet = new BarDataSet(barEntries, "Stats");
-                        barDataSet.setColors(getResources().getColor(R.color.chartColorRed), getResources().getColor(R.color.chartColorBlue), getResources().getColor(R.color.chartColorYellow));
-                        barDataSet.setValueTextSize(15f);
-
-
-                        BarData barData = new BarData(barDataSet);
-                        barData.setBarWidth(0.8f);
-
-
-                        barChart.getXAxis().setEnabled(false);
-                        barChart.setVisibility(View.VISIBLE);
-                        barChart.animateY(4000);
-                        barChart.setData(barData);
-                        barChart.setFitBars(true);
-                        barChart.getDescription().setEnabled(false);
-                        barChart.invalidate();
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("tag", "onErrorResponse" + error.getMessage());
-                    }
-                });
-
-                requestQueue.add(jsonArrayRequestUsers);
-
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("tag", "onErrorResponse" + error.getMessage());
-            }
-        });
-
-        requestQueue.add(jsonArrayRequestEvents);
-
-
-        move = root.findViewById(R.id.btn_move);
-        move.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openEventsActivity();
-            }
-        });
+//        eventsList = new ArrayList<>();
+//        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+//        String urlEvents = Constant.GETEVENTS_URL;
+//        JsonArrayRequest jsonArrayRequestEvents = new JsonArrayRequest(Request.Method.GET, urlEvents, null, new Response.Listener<JSONArray>() {
+//            @Override
+//            public void onResponse(JSONArray response) {
+//
+//                for (int i = 0; i < response.length(); i++) {
+//                    try {
+//                        JSONObject eventObject = response.getJSONObject(i);
+//
+//                        Event event = new Event();
+//                        event.setName(eventObject.getString("name"));
+//                        event.setSeats(eventObject.getString("seats"));
+//                        eventsList.add(event);
+//                        JSONArray jsonArray = eventObject.getJSONArray("userList");
+//                        occupiedSeats = occupiedSeats + jsonArray.length();
+//                        totalSeats = totalSeats + Double.parseDouble(eventObject.getString("seats")) + occupiedSeats;
+//                        events.setText(String.valueOf(eventsList.size()));
+//                        attendants.setText(String.valueOf(occupiedSeats / totalSeats * 100));
+//
+//
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                }
+//
+//                usersList = new ArrayList<>();
+//                String urlUsers = Constant.GETEVENTS_URL;
+//                JsonArrayRequest jsonArrayRequestUsers = new JsonArrayRequest(Request.Method.GET, urlUsers, null, new Response.Listener<JSONArray>() {
+//                    @Override
+//                    public void onResponse(JSONArray response) {
+//
+//                        for (int i = 0; i < response.length(); i++) {
+//                            try {
+//                                JSONObject eventObject = response.getJSONObject(i);
+//
+//                                User user = new User();
+//                                user.setUsername(eventObject.getString("username"));
+//                                usersList.add(user);
+//                                users.setText(String.valueOf(usersList.size()));
+//
+//
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//
+//                        }
+//
+//
+//                        int[] colorClassArray = {getResources().getColor(R.color.chartColorRed), getResources().getColor(R.color.chartColorBlue), getResources().getColor(R.color.chartColorYellow)};
+//
+//                        Legend legend = barChart.getLegend();
+//                        legend.setEnabled(true);
+//                        legend.setTextSize(15);
+//                        legend.setForm(Legend.LegendForm.SQUARE);
+//                        legend.setFormSize(10f);
+//                        legend.setXEntrySpace(15);
+//                        legend.setFormToTextSpace(10);
+//
+//                        LegendEntry[] legendEntries = new LegendEntry[3];
+//                        for (int index = 0; index < legendEntries.length; index++) {
+//                            LegendEntry entry = new LegendEntry();
+//                            entry.formColor = colorClassArray[index];
+//                            entry.label = String.valueOf(legendName[index]);
+//                            legendEntries[index] = entry;
+//                        }
+//                        legend.setCustom(legendEntries);
+//                        eventsNumber = Float.parseFloat(events.getText().toString());
+//                        usersNumber = Float.parseFloat(users.getText().toString());
+//                        attendance = Float.parseFloat(attendants.getText().toString());
+//                        ArrayList<BarEntry> barEntries = new ArrayList<>();
+//                        barEntries.add(new BarEntry(0, eventsNumber));
+//                        barEntries.add(new BarEntry(1, usersNumber));
+//                        barEntries.add(new BarEntry(2, attendance));
+//
+//                        BarDataSet barDataSet = new BarDataSet(barEntries, "Stats");
+//                        barDataSet.setColors(getResources().getColor(R.color.chartColorRed), getResources().getColor(R.color.chartColorBlue), getResources().getColor(R.color.chartColorYellow));
+//                        barDataSet.setValueTextSize(15f);
+//
+//
+//                        BarData barData = new BarData(barDataSet);
+//                        barData.setBarWidth(0.8f);
+//
+//
+//                        barChart.getXAxis().setEnabled(false);
+//                        barChart.setVisibility(View.VISIBLE);
+//                        barChart.animateY(4000);
+//                        barChart.setData(barData);
+//                        barChart.setFitBars(true);
+//                        barChart.getDescription().setEnabled(false);
+//                        barChart.invalidate();
+//
+//                    }
+//                }, new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        Log.d("tag", "onErrorResponse" + error.getMessage());
+//                    }
+//                });
+//
+//                requestQueue.add(jsonArrayRequestUsers);
+//
+//
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.d("tag", "onErrorResponse" + error.getMessage());
+//            }
+//        });
+//
+//        requestQueue.add(jsonArrayRequestEvents);
+//
+//
+//        move = root.findViewById(R.id.btn_move);
+//        move.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                openEventsActivity();
+//            }
+//        });
 
 
         return root;

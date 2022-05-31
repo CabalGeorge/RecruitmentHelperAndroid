@@ -1,14 +1,14 @@
-package com.example.recruitmenthelper.ui.myEvents;
+package com.example.recruitmenthelper.ui.candidates;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class MyEventsViewModel extends ViewModel {
+public class CandidatesViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public MyEventsViewModel() {
+    public CandidatesViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is slideshow fragment");
     }

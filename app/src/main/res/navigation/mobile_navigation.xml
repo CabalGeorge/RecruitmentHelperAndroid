@@ -12,15 +12,20 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_my_events"
-        android:name="com.example.recruitmenthelper.ui.myEvents.MyEventsFragment"
-        android:label="@string/my_events"
-        tools:layout="@layout/fragment_myevents" />
+        android:id="@+id/nav_users"
+        android:name="com.example.recruitmenthelper.ui.users.UsersFragment"
+        android:label="@string/Users"
+        tools:layout="@layout/fragment_users" />
     <fragment
-        android:id="@+id/nav_attending_events"
-        android:name="com.example.recruitmenthelper.ui.attendingEvents.AttendingEventsFragment"
-        android:label="Attending Events"
-        tools:layout="@layout/fragment_enlisted_events" />
+        android:id="@+id/nav_candidates"
+        android:name="com.example.recruitmenthelper.ui.candidates.CandidatesFragment"
+        android:label="@string/candidates"
+        tools:layout="@layout/fragment_candidates" />
+    <fragment
+        android:id="@+id/nav_archived"
+        android:name="com.example.recruitmenthelper.ui.archive.ArchivedCandidatesFragment"
+        android:label="Archived candidates"
+        tools:layout="@layout/fragment_candidates" />
     <fragment
         android:id="@+id/nav_reports"
         android:name="com.example.recruitmenthelper.ui.reports.ReportsFragment"

@@ -38,4 +38,18 @@
     <string name="register_now">Register now</string>
     <string name="login">Login</string>
     <string name="Email">Email</string>
+    <string name="Users">Users</string>
+    <string name="candidates">Candidates</string>
+    <string name="enter_user_name">Enter username</string>
+    <string name="enter_email">Enter user email</string>
+    <string name="enter_role">Enter user role</string>
+    <string name="enter_password">Enter user password</string>
+    <string name="user_name">Name</string>
+    <string name="user_email">Email</string>
+    <string name="user_role">Role</string>
+    <string name="candidate_phone">Phone</string>
+    <string name="candidate_city">City</string>
+    <string name="candidate_position">InterestedPosition</string>
+    <string name="fullProfile">View full profile</string>
+    <string name="archived">Archived</string>
 </resources>

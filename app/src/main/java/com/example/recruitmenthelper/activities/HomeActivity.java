@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -44,13 +45,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.add);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, FabPopUp.class));
-            }
-        });
+        FloatingActionButton fab = findViewById(R.id.floatingButton);
+
+        if(!sessionManager.getSessionRole().equals("ADMIN")) {
+            CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
+            p.setAnchorId(View.NO_ID);
+            fab.setLayoutParams(p);
+            fab.setVisibility(View.GONE);
+        }
+        fab.setOnClickListener(view -> startActivity(new Intent(HomeActivity.this, FabPopUp.class)));
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -60,29 +63,39 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             return true;
         });
 
+        String role = sessionManager.getSessionRole();
+        switch (role) {
+            case "ADMIN":
+                break;
+            case "HR_REPRESENTATIVE":
+                navigationView.getMenu().findItem(R.id.nav_users).setVisible(false);
+                break;
+            case "TECHNICAL_INTERVIEWER":
+                navigationView.getMenu().findItem(R.id.nav_users).setVisible(false);
+                break;
+            case "PTE":
+                navigationView.getMenu().findItem(R.id.nav_users).setVisible(false);
+                break;
+        }
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_my_events, R.id.nav_attending_events,R.id.nav_reports)
+                R.id.nav_home, R.id.nav_candidates, R.id.nav_users, R.id.nav_reports, R.id.nav_archived)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-
         switch (menuItem.getItemId()) {
             case R.id.nav_logout: {
                 logout(menuItem);
             }
         }
-
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -95,13 +108,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_delete: {
                 startActivity(new Intent(HomeActivity.this, DeletePopUp.class));
                 break;
             }
-
-
             default:
                 return super.onOptionsItemSelected(item);
         }

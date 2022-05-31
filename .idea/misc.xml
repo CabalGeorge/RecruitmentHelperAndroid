@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/cabal/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/simple_spinner_item.xml" value="0.23738738738738738" />
         <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1245" />
         <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/drawable/add2.xml" value="0.251" />
         <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/drawable/ic_baseline_access_time_24.xml" value="0.251" />
@@ -14,15 +15,38 @@
         <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.176" />
         <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.251" />
         <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.251" />
+        <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/drawable/ic_nav_archived.xml" value="0.139" />
+        <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/drawable/ic_nav_users.xml" value="0.2445" />
         <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/drawable/rh.xml" value="0.193" />
         <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/drawable/side_nav_bar.xml" value="0.251" />
+        <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/drawable/spinner_role.xml" value="0.251" />
         <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/activity_events.xml" value="0.20652173913043478" />
+        <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/activity_full_profile_pop_up.xml" value="0.23738738738738738" />
         <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/activity_home.xml" value="0.23738738738738738" />
         <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/activity_login.xml" value="0.20652173913043478" />
+        <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/activity_register.xml" value="0.20652173913043478" />
+        <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/add_event.xml" value="0.20652173913043478" />
+        <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/add_user.xml" value="0.23738738738738738" />
         <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/app_bar_main.xml" value="0.20652173913043478" />
+        <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/archived_candidates_activity.xml" value="0.23738738738738738" />
         <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/content_home.xml" value="0.20652173913043478" />
+        <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/custom_candidate_layout.xml" value="0.23738738738738738" />
+        <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/custom_event_layout.xml" value="0.20652173913043478" />
+        <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/custom_user_layout.xml" value="0.23738738738738738" />
+        <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/edit_event.xml" value="0.20652173913043478" />
+        <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/edit_user.xml" value="0.23738738738738738" />
+        <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/fragment_candidates.xml" value="0.23738738738738738" />
+        <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/fragment_enlisted_events.xml" value="0.20652173913043478" />
         <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/fragment_home.xml" value="0.20652173913043478" />
+        <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/fragment_myevents.xml" value="0.20652173913043478" />
+        <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/fragment_reports.xml" value="0.20652173913043478" />
+        <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/fragment_users.xml" value="0.23738738738738738" />
+        <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/full_profile_pop_up.xml" value="0.23738738738738738" />
+        <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/interview_creation_pop_up.xml" value="0.23738738738738738" />
+        <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/main_fragment.xml" value="0.23738738738738738" />
+        <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/menu_pop_up.xml" value="0.20652173913043478" />
         <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/nav_header_main.xml" value="0.20652173913043478" />
+        <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/layout/spinner_role.xml" value="0.23738738738738738" />
         <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/menu/home_menu.xml" value="0.23738738738738738" />
         <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/menu/home_navigation_drawer.xml" value="0.23738738738738738" />
         <entry key="..\:/Users/cabal/Desktop/LicentaApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.251" />

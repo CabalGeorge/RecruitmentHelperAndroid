@@ -1,50 +1,43 @@
 package com.example.recruitmenthelper.popups;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.DisplayMetrics;
-import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
+import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.TimePicker;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.recruitmenthelper.config.Constant;
-import com.example.recruitmenthelper.config.SessionManager;
 import com.example.recruitmenthelper.R;
+import com.example.recruitmenthelper.config.Constant;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class FabPopUp extends Activity {
 
-    EditText eventName, dateTime, eventLocation, eventSeats;
-    TextView createdBy;
-    SessionManager session;
-    SharedPreferences sharedPreferences;
+    EditText username, password, email;
+    Spinner role;
 
-    private static final String SHARED_PREF_NAME = "session";
-
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_event);
+        setContentView(R.layout.add_user);
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -54,111 +47,86 @@ public class FabPopUp extends Activity {
 
         getWindow().setLayout((int) (width * .9), (int) (height * .8));
 
-        session = new SessionManager(getApplicationContext());
-        sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
-        String creator = session.getSessionUsername();
+        username = findViewById(R.id.add_username);
+        password = findViewById(R.id.add_password);
+        email = findViewById(R.id.add_email);
 
-        createdBy = findViewById(R.id.creator);
-        createdBy.setText(creator);
-
-        eventName = findViewById(R.id.eventName);
-        dateTime = findViewById(R.id.datetime);
-        eventLocation = findViewById(R.id.eventLocation);
-        eventSeats=findViewById(R.id.eventSeats);
+        role = findViewById(R.id.add_role);
+        String[] roles = new String[]{"HR_REPRESENTATIVE", "TECHNICAL_INTERVIEWER", "PTE", "ADMIN"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_role, roles);
+        role.setAdapter(adapter);
 
         Button create = findViewById(R.id.btn_add);
-        create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addEvent();
+        create.setOnClickListener(v -> {
+            if (username.getText().toString().equals("")) {
+                Toast.makeText(getApplicationContext(), "Please provide a name!", Toast.LENGTH_LONG).show();
+            } else if (email.getText().toString().equals("")) {
+                Toast.makeText(getApplicationContext(), "Please provide an email address!", Toast.LENGTH_LONG).show();
+            } else if (password.getText().toString().equals("")) {
+                Toast.makeText(getApplicationContext(), "Please provide a password!", Toast.LENGTH_LONG).show();
+            } else {
+                createUser();
             }
         });
 
-        findViewById(R.id.btn_date_picker).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDateTimeDialog(dateTime);
+        CheckBox box = findViewById(R.id.checkUserPass);
+        box.setOnCheckedChangeListener((compoundButton, checked) -> {
+            if (checked) {
+                password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            } else {
+                password.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD | InputType.TYPE_CLASS_TEXT);
             }
         });
 
 
     }
 
-
-    private void addEvent() {
-
-        String url = Constant.ADD_URL;
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void createUser() {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                if (response.equals("SUCCESSFUL")) {
-                    Toast.makeText(getApplicationContext(), "Event successfully added!", Toast.LENGTH_LONG).show();
-                } else if (response.equals("EXISTING EVENT")) {
-                    Toast.makeText(getApplicationContext(), "Event with this name already exists!", Toast.LENGTH_LONG).show();
-                } else if(response.equals("NEED NAME")){
-                    Toast.makeText(getApplicationContext(), "Please provide a name for your event!", Toast.LENGTH_LONG).show();
-                } else if(response.equals("NEED DATETIME")){
-                    Toast.makeText(getApplicationContext(), "Please choose a date for your event!", Toast.LENGTH_LONG).show();
-                } else if(response.equals("NEED LOCATION")) {
-                    Toast.makeText(getApplicationContext(), "Please provide a location for your event!", Toast.LENGTH_LONG).show();
-                } else if(response.equals("NEED SEATS")){
-                    Toast.makeText(getApplicationContext(), "Please provide a number of seats!",Toast.LENGTH_LONG).show();
+
+        JSONObject getObject = new JSONObject();
+        try {
+            getObject.put("email", email.getText().toString().trim());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String urlGet = Constant.GET_USER_BY_EMAIL_URL;
+        JsonObjectRequest getJsonObjectRequest = new JsonObjectRequest(Request.Method.POST, urlGet, getObject, getResponse -> {
+            if (getResponse.isNull("email")) {
+                JSONObject object = new JSONObject();
+                try {
+                    object.put("userId", 0);
+                    object.put("name", username.getText().toString().trim());
+                    object.put("password", password.getText().toString().trim());
+                    object.put("email", email.getText().toString().trim());
+                    object.put("role", role.getSelectedItem().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "error" + error.toString(), Toast.LENGTH_LONG).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
 
-                Map<String, String> params = new HashMap<>();
-                params.put("name", eventName.getText().toString().trim());
-                params.put("time", dateTime.getText().toString().trim());
-                params.put("location", eventLocation.getText().toString().trim());
-                params.put("username", createdBy.getText().toString().trim());
-                params.put("seats", eventSeats.getText().toString().trim());
-                return params;
-            }
-        };
-
-        requestQueue.add(stringRequest);
-
-    }
-
-
-    private void showDateTimeDialog(EditText dateTime) {
-        final Calendar calendar = Calendar.getInstance();
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                calendar.set(Calendar.YEAR, year);
-                calendar.set(Calendar.MONTH, month);
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-                TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                        calendar.set(Calendar.MINUTE, minute);
-
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/YYYY HH:mm");
-
-                        dateTime.setText(simpleDateFormat.format(calendar.getTime()));
+                String url = Constant.CREATE_USER_URL;
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object, postResponse -> {
+                    try {
+                        if (postResponse.getString("name").contentEquals(username.getText().toString().trim())
+                                && postResponse.getString("email").contentEquals(email.getText().toString().trim())
+                                && postResponse.getString("role").contentEquals(role.getSelectedItem().toString())) {
+                            Toast.makeText(getApplicationContext(), "User created successfully!", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Error while creating user!", Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                };
+                }, error -> Toast.makeText(getApplicationContext(), "Error while creating user!", Toast.LENGTH_LONG).show()) {};
+                requestQueue.add(jsonObjectRequest);
 
-                new TimePickerDialog(FabPopUp.this,R.style.DialogTheme, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "User with this email already exists", Toast.LENGTH_LONG).show();
             }
-        };
 
-        new DatePickerDialog(FabPopUp.this,R.style.DialogTheme, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-
+        }, error -> Toast.makeText(getApplicationContext(), "error" + error.toString(), Toast.LENGTH_LONG).show()) {};
+        requestQueue.add(getJsonObjectRequest);
     }
-
-
-
 }
