@@ -23,6 +23,7 @@ import com.example.recruitmenthelper.model.Candidate;
 import com.example.recruitmenthelper.model.User;
 import com.example.recruitmenthelper.popups.EditUserPopUp;
 import com.example.recruitmenthelper.popups.FullProfilePopUp;
+import com.example.recruitmenthelper.popups.InterviewCreationPopUp;
 
 import java.util.List;
 
@@ -97,7 +98,7 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.View
     }
 
     public Intent transferCandidateDataToInterviewPopUp(int position) {
-        Intent intent = new Intent(cardView.getContext(), FullProfilePopUp.class);
+        Intent intent = new Intent(cardView.getContext(), InterviewCreationPopUp.class);
         intent.putExtra("id", String.valueOf(candidates.get(position).getCandidateId()));
         return intent;
     }

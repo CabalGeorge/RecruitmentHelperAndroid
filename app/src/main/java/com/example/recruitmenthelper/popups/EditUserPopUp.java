@@ -74,7 +74,8 @@ public class EditUserPopUp extends Activity {
             } else if (editEmail.getText().toString().equals("")) {
                 Toast.makeText(getApplicationContext(), "Please provide an email address!", Toast.LENGTH_LONG).show();
             } else {
-            updateUser();}
+                updateUser();
+            }
         });
     }
 
@@ -124,7 +125,8 @@ public class EditUserPopUp extends Activity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                    }, error -> Toast.makeText(getApplicationContext(), "error" + error.toString(), Toast.LENGTH_LONG).show()) {};
+                    }, error -> Toast.makeText(getApplicationContext(), "error" + error.toString(), Toast.LENGTH_LONG).show()) {
+                    };
                     requestQueue.add(updateJsonObjectRequest);
                 } else {
                     Toast.makeText(getApplicationContext(), "User with this email already exists", Toast.LENGTH_LONG).show();
@@ -143,33 +145,4 @@ public class EditUserPopUp extends Activity {
         };
         requestQueue.add(getJsonObjectRequest);
     }
-
-//    private void showDateTimeDialog(EditText eventDateTime) {
-//        final Calendar calendar = Calendar.getInstance();
-//        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-//            @Override
-//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//                calendar.set(Calendar.YEAR, year);
-//                calendar.set(Calendar.MONTH, month);
-//                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-//
-//                TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-//                    @Override
-//                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-//                        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-//                        calendar.set(Calendar.MINUTE, minute);
-//
-//                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/YYYY HH:mm");
-//
-//                        eventDateTime.setText(simpleDateFormat.format(calendar.getTime()));
-//                    }
-//                };
-//
-//                new TimePickerDialog(EditUserPopUp.this,R.style.DialogTheme, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
-//            }
-//        };
-//
-//        new DatePickerDialog(EditUserPopUp.this,R.style.DialogTheme, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-//
-//    }
 }

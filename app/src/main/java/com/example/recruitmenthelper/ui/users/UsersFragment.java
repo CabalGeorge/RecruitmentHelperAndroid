@@ -29,6 +29,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UsersFragment extends Fragment {
 
@@ -50,7 +51,6 @@ public class UsersFragment extends Fragment {
         usersList = new ArrayList<>();
         sessionManager = new SessionManager(getActivity().getApplicationContext());
 
-
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
         String url = Constant.GET_ALL_USERS_URL;
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
@@ -71,6 +71,8 @@ public class UsersFragment extends Fragment {
             }
 
 
+            User user = usersList.stream().filter(user1 -> user1.getEmail().equals(sessionManager.getSessionEmail())).collect(Collectors.toList()).get(0);
+            usersList.remove(user);
             userAdapter = new UserAdapter(getActivity().getApplicationContext(), usersList);
             recyclerView = root.findViewById(R.id.usersList);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));

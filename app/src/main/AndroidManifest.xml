@@ -46,6 +46,9 @@
         <activity
             android:name=".popups.FullProfilePopUp"
             android:theme="@style/AppTheme.CustomTheme" />
+        <activity
+            android:name=".popups.InterviewCreationPopUp"
+            android:theme="@style/AppTheme.CustomTheme" />
     </application>
 
 </manifest>

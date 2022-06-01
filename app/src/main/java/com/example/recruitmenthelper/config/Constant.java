@@ -16,6 +16,7 @@ public class Constant {
     public final static String GET_CANDIDATE_BY_ID = BASE_CM_URL + "/candidates";
     public final static String DELETE_CANDIDATE_URL = BASE_CM_URL + "/candidates";
     public final static String ARCHIVE_CANDIDATE_URL = BASE_CM_URL + "/candidates";
+    public final static String SCHEDULE_INTERVIEW_URL = BASE_UM_URL + "interviews/schedule";
     public final static String GETEVENT_URL = BASE_CM_URL + "/candidates";
     public final static String DELETE_URL = BASE_CM_URL + "/candidates";
     public final static String GETEVENTS_URL = BASE_CM_URL + "/candidates";

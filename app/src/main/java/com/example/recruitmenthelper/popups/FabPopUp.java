@@ -52,7 +52,7 @@ public class FabPopUp extends Activity {
         email = findViewById(R.id.add_email);
 
         role = findViewById(R.id.add_role);
-        String[] roles = new String[]{"HR_REPRESENTATIVE", "TECHNICAL_INTERVIEWER", "PTE", "ADMIN"};
+        String[] roles = new String[]{"No selection","HR_REPRESENTATIVE", "TECHNICAL_INTERVIEWER", "PTE", "ADMIN"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_role, roles);
         role.setAdapter(adapter);
 

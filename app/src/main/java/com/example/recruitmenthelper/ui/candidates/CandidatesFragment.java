@@ -92,8 +92,8 @@ public class CandidatesFragment extends Fragment {
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case 0:
-                Intent intent = candidateAdapter.transferCandidateDataToProfilePopUp(item.getGroupId());
-                startActivity(intent);
+                Intent profileIntent = candidateAdapter.transferCandidateDataToProfilePopUp(item.getGroupId());
+                startActivity(profileIntent);
                 break;
             case 1:
                 candidateAdapter.archiveCandidate(item.getGroupId());
@@ -101,7 +101,8 @@ public class CandidatesFragment extends Fragment {
             case 2:
                 candidateAdapter.deleteCandidate(item.getGroupId());
             case 3:
-                candidateAdapter.transferCandidateDataToInterviewPopUp(item.getGroupId());
+                Intent interviewIntent = candidateAdapter.transferCandidateDataToInterviewPopUp(item.getGroupId());
+                startActivity(interviewIntent);
             default:
                 return super.onContextItemSelected(item);
         }
