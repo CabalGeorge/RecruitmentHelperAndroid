@@ -1,11 +1,14 @@
 package com.example.recruitmenthelper.model;
 
+import java.util.List;
+
 public class User {
     private Integer user_id;
     private String username;
     private String password;
     private String email;
     private String role;
+    private List<Interview> interviewList;
 
     public User(Integer user_id, String username, String email, String role) {
         this.user_id = user_id;
@@ -56,5 +59,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Interview> getInterviewList() {
+        return interviewList;
+    }
+
+    public void setInterviewList(List<Interview> interviewList) {
+        this.interviewList = interviewList;
     }
 }

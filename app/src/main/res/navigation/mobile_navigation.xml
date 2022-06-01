@@ -27,9 +27,14 @@
         android:label="Archived candidates"
         tools:layout="@layout/fragment_candidates" />
     <fragment
-        android:id="@+id/nav_reports"
-        android:name="com.example.recruitmenthelper.ui.reports.ReportsFragment"
-        android:label="Reports"
-        tools:layout="@layout/fragment_reports" />
+        android:id="@+id/nav_interviews"
+        android:name="com.example.recruitmenthelper.ui.interviews.InterviewsFragment"
+        android:label="All interviews"
+        tools:layout="@layout/fragment_interviews" />
+<!--    <fragment-->
+<!--        android:id="@+id/nav_reports"-->
+<!--        android:name="com.example.recruitmenthelper.ui.reports.ReportsFragment"-->
+<!--        android:label="Reports"-->
+<!--        tools:layout="@layout/fragment_reports" />-->
 
 </navigation>

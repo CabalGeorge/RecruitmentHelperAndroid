@@ -79,7 +79,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_candidates, R.id.nav_users, R.id.nav_reports, R.id.nav_archived)
+                R.id.nav_home, R.id.nav_candidates, R.id.nav_users, R.id.nav_archived, R.id.nav_interviews)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -159,7 +159,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
 
         if (drawer.isDrawerOpen(GravityCompat.START)) {

@@ -20,7 +20,6 @@
         android:supportsRtl="true"
         android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.EventsActivity" />
         <activity
             android:name=".activities.HomeActivity"
             android:label="Home"
