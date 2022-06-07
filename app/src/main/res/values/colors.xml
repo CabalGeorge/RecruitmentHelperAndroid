@@ -4,7 +4,10 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="colorPurple">#552586</color>
+    <color name="chartLimeGreen">#32CD32</color>
+    <color name="chartPaleGreen">#98FB98</color>
     <color name="chartColorRed">#FF0000</color>
     <color name="chartColorBlue">#0000FF</color>
     <color name="chartColorYellow">#FFFF00</color>
+    <color name="chartColorPaleYellow">#ffff9d</color>
 </resources>

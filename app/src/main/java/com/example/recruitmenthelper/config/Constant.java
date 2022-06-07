@@ -20,7 +20,11 @@ public class Constant {
     public final static String SCHEDULE_INTERVIEW_URL = BASE_UM_URL + "interviews/schedule";
     public final static String DELETE_INTERVIEW_URL = BASE_UM_URL + "/interviews";
     public final static String GET_ALL_INTERVIEWS_URL = BASE_UM_URL + "/interviews";
-    public final static String GETEVENT_URL = BASE_CM_URL + "/candidates";
-    public final static String DELETE_URL = BASE_CM_URL + "/candidates";
-    public final static String GETEVENTS_URL = BASE_CM_URL + "/candidates";
+    public final static String ADD_FEEDBACK_URL = BASE_CM_URL + "/candidates/feedback";
+    public final static String GET_FEEDBACK_BY_INTERVIEW_ID = BASE_CM_URL + "/candidates/feedback";
+    public final static String COUNT_ACTIVE_CANDIDATES_URL = BASE_CM_URL + "/candidates/count/active";
+    public final static String COUNT_ARCHIVED_CANDIDATES_URL = BASE_CM_URL + "/candidates/count/archived";
+    public final static String COUNT_POSITIVE_FEEDBACKS_URL = BASE_CM_URL + "/candidates/feedback/positive/count";
+    public final static String COUNT_NEGATIVE_FEEDBACKS_URL = BASE_CM_URL + "/candidates/feedback/negative/count";
+    public final static String COUNT_ALL_INTERVIEWS_URL = BASE_UM_URL + "/interviews/count";
 }

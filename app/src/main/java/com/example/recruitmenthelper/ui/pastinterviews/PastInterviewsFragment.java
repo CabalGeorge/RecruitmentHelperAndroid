@@ -1,4 +1,6 @@
-package com.example.recruitmenthelper.ui.interviews;
+package com.example.recruitmenthelper.ui.pastinterviews;
+
+import androidx.annotation.RequiresApi;
 
 import android.content.Intent;
 import android.os.Build;
@@ -6,7 +8,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,37 +20,33 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.recruitmenthelper.R;
 import com.example.recruitmenthelper.config.Constant;
 import com.example.recruitmenthelper.config.InterviewAdapter;
+import com.example.recruitmenthelper.config.PastInterviewsAdapter;
 import com.example.recruitmenthelper.config.SessionManager;
-import com.example.recruitmenthelper.model.Candidate;
 import com.example.recruitmenthelper.model.Interview;
-import com.example.recruitmenthelper.model.User;
+import com.example.recruitmenthelper.ui.interviews.InterviewsViewModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class InterviewsFragment extends Fragment {
+public class PastInterviewsFragment extends Fragment {
 
     private InterviewsViewModel mViewModel;
     RecyclerView recyclerView;
     List<Interview> interviewList;
-    InterviewAdapter interviewAdapter;
+    PastInterviewsAdapter pastInterviewsAdapter;
     SessionManager sessionManager;
 
 
@@ -58,8 +55,8 @@ public class InterviewsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_interviews, container, false);
-        getActivity().setTitle("All interviews");
+        View root = inflater.inflate(R.layout.fragment_past_interviews, container, false);
+        getActivity().setTitle("Past interviews");
         setHasOptionsMenu(true);
 
 
@@ -67,7 +64,7 @@ public class InterviewsFragment extends Fragment {
         sessionManager = new SessionManager(getActivity().getApplicationContext());
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        String url = Constant.GET_ALL_INTERVIEWS_URL;
+        String url = Constant.GET_ALL_INTERVIEWS_URL + "/past/" + sessionManager.getSessionUserId();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, interviewsResponse -> {
 
             for (int i = 0; i < interviewsResponse.length(); i++) {
@@ -91,11 +88,10 @@ public class InterviewsFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-
-            interviewAdapter = new InterviewAdapter(getActivity().getApplicationContext(), interviewList);
-            recyclerView = root.findViewById(R.id.interviewsList);
+            pastInterviewsAdapter = new PastInterviewsAdapter(getActivity().getApplicationContext(), interviewList);
+            recyclerView = root.findViewById(R.id.pastInterviewsList);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-            recyclerView.setAdapter(interviewAdapter);
+            recyclerView.setAdapter(pastInterviewsAdapter);
 
         }, error -> Log.d("tag", "onErrorResponse" + error.getMessage())) {
         };
@@ -104,16 +100,13 @@ public class InterviewsFragment extends Fragment {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case 0:
-                interviewAdapter.deleteInterview(item.getGroupId());
-                break;
-            case 1:
-                Intent intent = interviewAdapter.transferData(item.getGroupId());
+                Intent intent = pastInterviewsAdapter.transferInterviewData(item.getGroupId());
                 startActivity(intent);
+                break;
             default:
                 return super.onContextItemSelected(item);
         }
@@ -136,9 +129,10 @@ public class InterviewsFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                interviewAdapter.getFilter().filter(s);
+                pastInterviewsAdapter.getFilter().filter(s);
                 return false;
             }
         });
     }
+
 }

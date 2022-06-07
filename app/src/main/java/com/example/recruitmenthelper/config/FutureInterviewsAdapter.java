@@ -1,7 +1,6 @@
 package com.example.recruitmenthelper.config;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,26 +8,19 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.recruitmenthelper.R;
 import com.example.recruitmenthelper.model.Interview;
-import com.example.recruitmenthelper.model.User;
-import com.example.recruitmenthelper.popups.ViewFeedbacksPopUp;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class InterviewAdapter extends RecyclerView.Adapter<InterviewAdapter.ViewHolder> implements Filterable {
+public class FutureInterviewsAdapter extends RecyclerView.Adapter<FutureInterviewsAdapter.ViewHolder> implements Filterable {
 
     LayoutInflater inflater;
     CardView cardView;
@@ -36,7 +28,7 @@ public class InterviewAdapter extends RecyclerView.Adapter<InterviewAdapter.View
     List<Interview> interviewsListFull;
     SessionManager sessionManager;
 
-    public InterviewAdapter(Context context, List<Interview> interviews) {
+    public FutureInterviewsAdapter(Context context, List<Interview> interviews) {
         this.inflater = LayoutInflater.from(context);
         this.interviews = interviews;
         interviewsListFull = new ArrayList<>(interviews);
@@ -44,14 +36,13 @@ public class InterviewAdapter extends RecyclerView.Adapter<InterviewAdapter.View
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
+    public FutureInterviewsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.custom_interview_layout, parent, false);
-        return new ViewHolder(view);
+        return new FutureInterviewsAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FutureInterviewsAdapter.ViewHolder holder, int position) {
 
         holder.interviewLocation.setText("Location: " + interviews.get(position).getLocation());
         String date = interviews.get(position).getDateTime().toString().substring(0, 10);
@@ -88,14 +79,10 @@ public class InterviewAdapter extends RecyclerView.Adapter<InterviewAdapter.View
             cardView = itemView.findViewById(R.id.interviewCardView);
 
             cardView.setOnCreateContextMenuListener(this);
-
         }
 
         @Override
-        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            menu.setHeaderTitle("Select an action");
-            menu.add(this.getAdapterPosition(), 0, 0, "Cancel this interview");
-            menu.add(this.getAdapterPosition(), 1, 1, "View feedback");
+        public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
         }
     }
 
@@ -144,23 +131,4 @@ public class InterviewAdapter extends RecyclerView.Adapter<InterviewAdapter.View
             notifyDataSetChanged();
         }
     };
-
-    public void deleteInterview(int position) {
-        RequestQueue requestQueue = Volley.newRequestQueue(cardView.getContext());
-
-        String urlDelete = Constant.DELETE_INTERVIEW_URL + "/" + interviews.get(position).getInterviewId();
-        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, urlDelete, response -> {
-            Toast.makeText(cardView.getContext(), "Interview successfully deleted!", Toast.LENGTH_LONG).show();
-        }, error -> Toast.makeText(cardView.getContext(), "error" + error.toString(), Toast.LENGTH_LONG).show()) {
-        };
-        requestQueue.add(stringRequest);
-        interviews.remove(position);
-        notifyItemRemoved(position);
-    }
-
-    public Intent transferData(int position) {
-        Intent intent = new Intent(cardView.getContext(), ViewFeedbacksPopUp.class);
-        intent.putExtra("id", String.valueOf(interviews.get(position).getInterviewId()));
-        return intent;
-    }
 }

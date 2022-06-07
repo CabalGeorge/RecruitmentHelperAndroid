@@ -3,7 +3,6 @@ package com.example.recruitmenthelper.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -21,7 +20,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.recruitmenthelper.R;
 import com.example.recruitmenthelper.config.SessionManager;
-import com.example.recruitmenthelper.popups.DeletePopUp;
 import com.example.recruitmenthelper.popups.FabPopUp;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -66,20 +64,26 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         String role = sessionManager.getSessionRole();
         switch (role) {
             case "ADMIN":
+                navigationView.getMenu().findItem(R.id.nav_future_interviews).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_past_interviews).setVisible(false);
                 break;
             case "HR_REPRESENTATIVE":
                 navigationView.getMenu().findItem(R.id.nav_users).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_interviews).setVisible(false);
                 break;
             case "TECHNICAL_INTERVIEWER":
                 navigationView.getMenu().findItem(R.id.nav_users).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_archived).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_interviews).setVisible(false);
                 break;
             case "PTE":
-                navigationView.getMenu().findItem(R.id.nav_users).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_future_interviews).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_past_interviews).setVisible(false);
                 break;
         }
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_candidates, R.id.nav_users, R.id.nav_archived, R.id.nav_interviews)
+                R.id.nav_home, R.id.nav_candidates, R.id.nav_users, R.id.nav_archived, R.id.nav_interviews, R.id.nav_future_interviews, R.id.nav_past_interviews, R.id.reports)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -97,25 +101,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         }
         drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.home_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_delete: {
-                startActivity(new Intent(HomeActivity.this, DeletePopUp.class));
-                break;
-            }
-            default:
-                return super.onOptionsItemSelected(item);
-        }
         return true;
     }
 

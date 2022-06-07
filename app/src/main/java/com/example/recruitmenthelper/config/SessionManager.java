@@ -14,6 +14,7 @@ public class SessionManager {
     public static final String KEY_NAME = "username";
     public static final String KEY_EMAIL = "email";
     public static final String KEY_ROLE = "role";
+    public static final String KEY_ID = "userId";
 
 
     public SessionManager(Context context) {
@@ -27,15 +28,16 @@ public class SessionManager {
         String username = user.getUsername();
         String email = user.getEmail();
         String role = user.getRole();
+        String userId = String.valueOf(user.getUser_id());
 
         editor.putString(KEY_NAME, username).commit();
         editor.putString(KEY_EMAIL, email).commit();
         editor.putString(KEY_ROLE, role).commit();
+        editor.putString(KEY_ID, userId).commit();
 
     }
 
     public String getSessionUsername() {
-
         return sharedPreferences.getString(KEY_NAME, null);
     }
 
@@ -44,8 +46,11 @@ public class SessionManager {
     }
 
     public String getSessionRole() {
-
         return sharedPreferences.getString(KEY_ROLE, null);
+    }
+
+    public String getSessionUserId() {
+        return sharedPreferences.getString(KEY_ID, null);
     }
 
 
@@ -54,6 +59,7 @@ public class SessionManager {
         editor.putString(KEY_NAME, null).commit();
         editor.putString(KEY_EMAIL, null).commit();
         editor.putString(KEY_ROLE, null).commit();
+        editor.putString(KEY_ID, null).commit();
     }
 
 }

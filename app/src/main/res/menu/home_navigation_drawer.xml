@@ -22,10 +22,18 @@
             android:id="@+id/nav_interviews"
             android:icon="@drawable/ic_nav_interviews"
             android:title="@string/interviews"/>
-<!--        <item-->
-<!--            android:id="@+id/nav_reports"-->
-<!--            android:icon="@drawable/ic_baseline_assessment_24"-->
-<!--            android:title="@string/reports"/>-->
+        <item
+            android:id="@+id/nav_future_interviews"
+            android:icon="@drawable/ic_nav_future_interviews"
+            android:title="Future interviews"/>
+        <item
+            android:id="@+id/nav_past_interviews"
+            android:icon="@drawable/ic_nav_past_interviews"
+            android:title="Past interviews"/>
+        <item
+            android:id="@+id/nav_reports"
+            android:icon="@drawable/ic_baseline_assessment_24"
+            android:title="@string/reports"/>
     </group>
 
     <item android:title="@string/options">

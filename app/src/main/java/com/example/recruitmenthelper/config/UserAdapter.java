@@ -6,6 +6,8 @@ import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,18 +25,22 @@ import com.example.recruitmenthelper.R;
 import com.example.recruitmenthelper.model.User;
 import com.example.recruitmenthelper.popups.EditUserPopUp;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
+public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> implements Filterable {
 
     LayoutInflater inflater;
     CardView cardView;
     List<User> users;
+    List<User> usersListFull;
     SessionManager sessionManager;
 
     public UserAdapter(Context context, List<User> users) {
         this.inflater = LayoutInflater.from(context);
         this.users = users;
+        usersListFull = new ArrayList<>(users);
     }
 
     @NonNull
@@ -78,19 +84,59 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            menu.setHeaderTitle("Select an action");
-            menu.add(this.getAdapterPosition(), 0, 0, "Edit this user");
-            menu.add(this.getAdapterPosition(), 1, 1, "Delete this user");
+            if (sessionManager.getSessionRole().equals("ADMIN")) {
+                menu.setHeaderTitle("Select an action");
+                menu.add(this.getAdapterPosition(), 0, 0, "Edit this user");
+                menu.add(this.getAdapterPosition(), 1, 1, "Delete this user");
+            }
         }
     }
+
+    @Override
+    public Filter getFilter() {
+        return userFilter;
+    }
+
+    private Filter userFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            List<User> filteredList = new ArrayList<>();
+
+            if (charSequence == null || charSequence.length() == 0) {
+                filteredList.addAll(usersListFull);
+            } else {
+                String filterPattern = charSequence.toString().toLowerCase(Locale.ROOT).trim();
+
+                for (User user : usersListFull) {
+                    if (user.getUsername().toLowerCase(Locale.ROOT).contains(filterPattern)) {
+                        filteredList.add(user);
+                    } else if (user.getRole().toLowerCase(Locale.ROOT).contains(filterPattern)) {
+                        filteredList.add(user);
+                    }
+                }
+            }
+            FilterResults filterResults = new FilterResults();
+            filterResults.values = filteredList;
+
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            users.clear();
+            users.addAll((List) filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
 
     public void deleteUser(int position) {
         RequestQueue requestQueue = Volley.newRequestQueue(cardView.getContext());
 
         String urlDelete = Constant.DELETE_USER_URL + "/" + users.get(position).getUser_id();
         StringRequest stringRequest = new StringRequest(Request.Method.DELETE, urlDelete, response -> {
-                Toast.makeText(cardView.getContext(), "User successfully deleted!", Toast.LENGTH_LONG).show();
-        }, error -> Toast.makeText(cardView.getContext(), "error" + error.toString(), Toast.LENGTH_LONG).show()) {};
+            Toast.makeText(cardView.getContext(), "User successfully deleted!", Toast.LENGTH_LONG).show();
+        }, error -> Toast.makeText(cardView.getContext(), "error" + error.toString(), Toast.LENGTH_LONG).show()) {
+        };
 
         requestQueue.add(stringRequest);
         users.remove(position);
@@ -106,6 +152,4 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         intent.putExtra("role", users.get(position).getRole());
         return intent;
     }
-
-
 }

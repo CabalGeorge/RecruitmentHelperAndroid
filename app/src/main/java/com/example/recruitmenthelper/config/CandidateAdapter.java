@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,18 +27,22 @@ import com.example.recruitmenthelper.popups.EditUserPopUp;
 import com.example.recruitmenthelper.popups.FullProfilePopUp;
 import com.example.recruitmenthelper.popups.InterviewCreationPopUp;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.ViewHolder> {
+public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.ViewHolder> implements Filterable {
 
     LayoutInflater inflater;
     CardView cardView;
     List<Candidate> candidates;
+    List<Candidate> candidatesListFull;
     SessionManager sessionManager;
 
     public CandidateAdapter(Context context, List<Candidate> candidates) {
         this.inflater = LayoutInflater.from(context);
         this.candidates = candidates;
+        candidatesListFull = new ArrayList<>(candidates);
     }
 
     @NonNull
@@ -85,11 +91,54 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.View
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             menu.setHeaderTitle("Select an action");
             menu.add(this.getAdapterPosition(), 0, 0, "View full profile");
-            menu.add(this.getAdapterPosition(), 1, 1, "Archive this candidate");
-            menu.add(this.getAdapterPosition(), 2, 2, "Delete this candidate");
-            menu.add(this.getAdapterPosition(), 3, 3, "Schedule an interview");
+            if (!sessionManager.getSessionRole().equals("TECHNICAL_INTERVIEWER")) {
+                menu.add(this.getAdapterPosition(), 1, 1, "Archive this candidate");
+                menu.add(this.getAdapterPosition(), 2, 2, "Delete this candidate");
+                menu.add(this.getAdapterPosition(), 3, 3, "Schedule an interview");
+            }
         }
     }
+
+    @Override
+    public Filter getFilter() {
+        return candidateFilter;
+    }
+
+    private Filter candidateFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            List<Candidate> filteredList = new ArrayList<>();
+
+            if (charSequence == null || charSequence.length() == 0) {
+                filteredList.addAll(candidatesListFull);
+            } else {
+                String filterPattern = charSequence.toString().toLowerCase(Locale.ROOT).trim();
+
+                for (Candidate candidate : candidatesListFull) {
+                    if (candidate.getFirstName().toLowerCase(Locale.ROOT).contains(filterPattern)) {
+                        filteredList.add(candidate);
+                    } else if (candidate.getLastName().toLowerCase(Locale.ROOT).contains(filterPattern)) {
+                        filteredList.add(candidate);
+                    } else if (candidate.getCity().toLowerCase(Locale.ROOT).contains(filterPattern)) {
+                        filteredList.add(candidate);
+                    } else if (candidate.getInterestPosition().toLowerCase(Locale.ROOT).contains(filterPattern)) {
+                        filteredList.add(candidate);
+                    }
+                }
+            }
+            FilterResults filterResults = new FilterResults();
+            filterResults.values = filteredList;
+
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            candidates.clear();
+            candidates.addAll((List) filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
 
     public Intent transferCandidateDataToProfilePopUp(int position) {
         Intent intent = new Intent(cardView.getContext(), FullProfilePopUp.class);
@@ -109,7 +158,8 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.View
         String urlDelete = Constant.DELETE_CANDIDATE_URL + "/" + candidates.get(position).getCandidateId();
         StringRequest stringRequest = new StringRequest(Request.Method.DELETE, urlDelete, response -> {
             Toast.makeText(cardView.getContext(), "Candidate successfully deleted!", Toast.LENGTH_LONG).show();
-        }, error -> Toast.makeText(cardView.getContext(), "error" + error.toString(), Toast.LENGTH_LONG).show()) {};
+        }, error -> Toast.makeText(cardView.getContext(), "error" + error.toString(), Toast.LENGTH_LONG).show()) {
+        };
 
         requestQueue.add(stringRequest);
         candidates.remove(position);
@@ -123,7 +173,8 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.View
         String urlDelete = Constant.ARCHIVE_CANDIDATE_URL + "/" + candidates.get(position).getCandidateId() + "/archive";
         StringRequest stringRequest = new StringRequest(Request.Method.PATCH, urlDelete, response -> {
             Toast.makeText(cardView.getContext(), "Candidate successfully archived!", Toast.LENGTH_LONG).show();
-        }, error -> Toast.makeText(cardView.getContext(), "error" + error.toString(), Toast.LENGTH_LONG).show()) {};
+        }, error -> Toast.makeText(cardView.getContext(), "error" + error.toString(), Toast.LENGTH_LONG).show()) {
+        };
 
         requestQueue.add(stringRequest);
         candidates.remove(position);

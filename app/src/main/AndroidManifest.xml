@@ -37,9 +37,6 @@
             android:name=".popups.FabPopUp"
             android:theme="@style/AppTheme.CustomTheme" />
         <activity
-            android:name=".popups.DeletePopUp"
-            android:theme="@style/AppTheme.CustomTheme" />
-        <activity
             android:name=".popups.EditUserPopUp"
             android:theme="@style/AppTheme.CustomTheme" />
         <activity
@@ -47,6 +44,12 @@
             android:theme="@style/AppTheme.CustomTheme" />
         <activity
             android:name=".popups.InterviewCreationPopUp"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity
+            android:name=".popups.AddFeedbackPopUp"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity
+            android:name=".popups.ViewFeedbacksPopUp"
             android:theme="@style/AppTheme.CustomTheme" />
     </application>
 

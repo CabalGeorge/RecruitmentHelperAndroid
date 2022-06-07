@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/fundal">
+
+    <ImageView
+        android:id="@+id/rh"
+        android:layout_width="201dp"
+        android:layout_height="151dp"
+        android:src="@mipmap/rhlogo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.038" />
+
+    <EditText
+        android:id="@+id/add_feedback"
+        android:layout_width="330dp"
+        android:layout_height="73dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="43dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Enter feedback"
+        android:inputType="textMultiLine"
+        android:paddingLeft="15dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.442" />
+
+    <Spinner
+        android:id="@+id/add_feedback_status"
+        android:layout_width="336dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/enter_role"
+        android:inputType="text"
+        android:paddingLeft="15dp"
+        android:popupBackground="@mipmap/fundal"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.719"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.608" />
+
+    <Button
+        android:id="@+id/btn_add_feedback"
+        android:layout_width="134dp"
+        android:layout_height="48dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="Add feedback"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="19dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.935" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

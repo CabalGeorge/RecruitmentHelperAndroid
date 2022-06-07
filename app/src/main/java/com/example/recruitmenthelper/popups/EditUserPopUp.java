@@ -59,7 +59,7 @@ public class EditUserPopUp extends Activity {
         editEmail = findViewById(R.id.editEmail);
 
         role = findViewById(R.id.editRole);
-        String[] roles = new String[]{"HR_REPRESENTATIVE", "TECHNICAL_INTERVIEWER", "PTE", "ADMIN"};
+        String[] roles = new String[]{"No selection", "HR_REPRESENTATIVE", "TECHNICAL_INTERVIEWER", "PTE", "ADMIN"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_role, roles);
         role.setAdapter(adapter);
         role.setSelection(getIndex(role, userRole));

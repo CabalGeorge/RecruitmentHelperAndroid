@@ -64,6 +64,8 @@ public class FabPopUp extends Activity {
                 Toast.makeText(getApplicationContext(), "Please provide an email address!", Toast.LENGTH_LONG).show();
             } else if (password.getText().toString().equals("")) {
                 Toast.makeText(getApplicationContext(), "Please provide a password!", Toast.LENGTH_LONG).show();
+            } else if (role.getSelectedItemPosition() == 0) {
+                Toast.makeText(getApplicationContext(), "Please select a role!", Toast.LENGTH_LONG).show();
             } else {
                 createUser();
             }
