@@ -27,7 +27,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.recruitmenthelper.R;
 import com.example.recruitmenthelper.config.Constant;
-import com.example.recruitmenthelper.config.InterviewAdapter;
 import com.example.recruitmenthelper.config.PastInterviewsAdapter;
 import com.example.recruitmenthelper.config.SessionManager;
 import com.example.recruitmenthelper.model.Interview;

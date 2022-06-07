@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.recruitmenthelper.R;
 import com.example.recruitmenthelper.model.Interview;
 import com.example.recruitmenthelper.popups.AddFeedbackPopUp;
-import com.example.recruitmenthelper.popups.EditUserPopUp;
 
 import java.util.ArrayList;
 import java.util.List;

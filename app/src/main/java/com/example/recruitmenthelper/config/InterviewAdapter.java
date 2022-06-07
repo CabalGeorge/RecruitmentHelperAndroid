@@ -21,7 +21,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.recruitmenthelper.R;
 import com.example.recruitmenthelper.model.Interview;
-import com.example.recruitmenthelper.model.User;
 import com.example.recruitmenthelper.popups.ViewFeedbacksPopUp;
 
 import java.util.ArrayList;

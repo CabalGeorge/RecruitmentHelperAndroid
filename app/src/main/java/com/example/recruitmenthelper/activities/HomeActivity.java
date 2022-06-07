@@ -70,15 +70,18 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case "HR_REPRESENTATIVE":
                 navigationView.getMenu().findItem(R.id.nav_users).setVisible(false);
                 navigationView.getMenu().findItem(R.id.nav_interviews).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_reports).setVisible(false);
                 break;
             case "TECHNICAL_INTERVIEWER":
                 navigationView.getMenu().findItem(R.id.nav_users).setVisible(false);
                 navigationView.getMenu().findItem(R.id.nav_archived).setVisible(false);
                 navigationView.getMenu().findItem(R.id.nav_interviews).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_reports).setVisible(false);
                 break;
             case "PTE":
                 navigationView.getMenu().findItem(R.id.nav_future_interviews).setVisible(false);
                 navigationView.getMenu().findItem(R.id.nav_past_interviews).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_reports).setVisible(false);
                 break;
         }
 

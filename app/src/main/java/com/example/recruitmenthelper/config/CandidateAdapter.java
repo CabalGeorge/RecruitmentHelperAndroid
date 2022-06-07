@@ -6,7 +6,6 @@ import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
@@ -22,8 +21,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.recruitmenthelper.R;
 import com.example.recruitmenthelper.model.Candidate;
-import com.example.recruitmenthelper.model.User;
-import com.example.recruitmenthelper.popups.EditUserPopUp;
 import com.example.recruitmenthelper.popups.FullProfilePopUp;
 import com.example.recruitmenthelper.popups.InterviewCreationPopUp;
 

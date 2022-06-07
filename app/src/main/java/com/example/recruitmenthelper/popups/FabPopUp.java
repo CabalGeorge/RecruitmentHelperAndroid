@@ -25,9 +25,6 @@ import com.example.recruitmenthelper.config.Constant;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class FabPopUp extends Activity {
 
     EditText username, password, email;

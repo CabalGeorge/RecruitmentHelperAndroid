@@ -19,30 +19,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.recruitmenthelper.R;
 import com.example.recruitmenthelper.config.Constant;
 import com.example.recruitmenthelper.config.InterviewAdapter;
 import com.example.recruitmenthelper.config.SessionManager;
-import com.example.recruitmenthelper.model.Candidate;
 import com.example.recruitmenthelper.model.Interview;
-import com.example.recruitmenthelper.model.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class InterviewsFragment extends Fragment {
 

@@ -11,20 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.recruitmenthelper.R;
 import com.example.recruitmenthelper.config.Constant;
-import com.example.recruitmenthelper.config.FutureInterviewsAdapter;
-import com.example.recruitmenthelper.model.Candidate;
-import com.example.recruitmenthelper.model.Event;
-import com.example.recruitmenthelper.model.Interview;
-import com.example.recruitmenthelper.model.User;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LegendEntry;
@@ -32,13 +25,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ReportsFragment extends Fragment {
 
