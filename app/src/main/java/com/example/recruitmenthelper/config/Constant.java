@@ -11,10 +11,10 @@ public class Constant {
     public final static String GET_ACTIVE_CANDIDATES_URL = BASE_CM_URL + "/candidates/unarchived";
     public final static String GET_ARCHIVED_CANDIDATES_URL = BASE_CM_URL + "/candidates/archived";
     public final static String GET_USER_BY_EMAIL_URL = BASE_UM_URL + "users/getByEmail";
-    public final static String GET_USER_BY_ID_URL = BASE_UM_URL + "/users";
+    public final static String GET_ALL_CANDIDATES_URL = BASE_CM_URL + "/candidates";
     public final static String UPDATE_USER_URL = BASE_UM_URL + "/users/updateUser";
     public final static String DELETE_USER_URL = BASE_UM_URL + "/users";
-    public final static String GET_CANDIDATE_BY_ID = BASE_CM_URL + "/candidates";
+    public final static String GET_CANDIDATE_BY_ID_URL = BASE_CM_URL + "/candidates";
     public final static String DELETE_CANDIDATE_URL = BASE_CM_URL + "/candidates";
     public final static String ARCHIVE_CANDIDATE_URL = BASE_CM_URL + "/candidates";
     public final static String SCHEDULE_INTERVIEW_URL = BASE_UM_URL + "interviews/schedule";
@@ -27,4 +27,5 @@ public class Constant {
     public final static String COUNT_POSITIVE_FEEDBACKS_URL = BASE_CM_URL + "/candidates/feedback/positive/count";
     public final static String COUNT_NEGATIVE_FEEDBACKS_URL = BASE_CM_URL + "/candidates/feedback/negative/count";
     public final static String COUNT_ALL_INTERVIEWS_URL = BASE_UM_URL + "/interviews/count";
+    public final static String GET_INTERVIEWS_FOR_USER_URL = BASE_UM_URL + "/interviews/user";
 }

@@ -6,6 +6,8 @@ import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,18 +23,22 @@ import com.example.recruitmenthelper.R;
 import com.example.recruitmenthelper.model.Candidate;
 import com.example.recruitmenthelper.popups.FullProfilePopUp;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class ArchivedAdapter extends RecyclerView.Adapter<ArchivedAdapter.ViewHolder> {
+public class ArchivedAdapter extends RecyclerView.Adapter<ArchivedAdapter.ViewHolder> implements Filterable {
 
    LayoutInflater inflater;
    CardView cardView;
    List<Candidate> candidates;
+   List<Candidate> candidatesListFull;
    SessionManager sessionManager;
 
    public ArchivedAdapter(Context context, List<Candidate> candidates) {
       this.inflater = LayoutInflater.from(context);
       this.candidates = candidates;
+      this.candidatesListFull = new ArrayList<>(candidates);
    }
 
    @NonNull
@@ -85,6 +91,47 @@ public class ArchivedAdapter extends RecyclerView.Adapter<ArchivedAdapter.ViewHo
          menu.add(this.getAdapterPosition(), 2, 2, "Delete this candidate");
       }
    }
+
+   @Override
+   public Filter getFilter() {
+      return candidateFilter;
+   }
+
+   private Filter candidateFilter = new Filter() {
+      @Override
+      protected FilterResults performFiltering(CharSequence charSequence) {
+         List<Candidate> filteredList = new ArrayList<>();
+
+         if (charSequence == null || charSequence.length() == 0) {
+            filteredList.addAll(candidatesListFull);
+         } else {
+            String filterPattern = charSequence.toString().toLowerCase(Locale.ROOT).trim();
+
+            for (Candidate candidate : candidatesListFull) {
+               if (candidate.getFirstName().toLowerCase(Locale.ROOT).contains(filterPattern)) {
+                  filteredList.add(candidate);
+               } else if (candidate.getLastName().toLowerCase(Locale.ROOT).contains(filterPattern)) {
+                  filteredList.add(candidate);
+               } else if (candidate.getCity().toLowerCase(Locale.ROOT).contains(filterPattern)) {
+                  filteredList.add(candidate);
+               } else if (candidate.getInterestPosition().toLowerCase(Locale.ROOT).contains(filterPattern)) {
+                  filteredList.add(candidate);
+               }
+            }
+         }
+         FilterResults filterResults = new FilterResults();
+         filterResults.values = filteredList;
+
+         return filterResults;
+      }
+
+      @Override
+      protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+         candidates.clear();
+         candidates.addAll((List) filterResults.values);
+         notifyDataSetChanged();
+      }
+   };
 
    public Intent transferCandidateData(int position) {
       Intent intent = new Intent(cardView.getContext(), FullProfilePopUp.class);

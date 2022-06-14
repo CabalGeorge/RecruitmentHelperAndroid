@@ -27,6 +27,7 @@ import com.google.android.material.navigation.NavigationView;
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
+    FloatingActionButton fab;
     SessionManager sessionManager;
     SharedPreferences sharedPreferences;
     private static final String SHARED_PREF_NAME = "session";
@@ -43,7 +44,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.floatingButton);
+        fab = findViewById(R.id.floatingButton);
 
         if(!sessionManager.getSessionRole().equals("ADMIN")) {
             CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
@@ -66,6 +67,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case "ADMIN":
                 navigationView.getMenu().findItem(R.id.nav_future_interviews).setVisible(false);
                 navigationView.getMenu().findItem(R.id.nav_past_interviews).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_my_candidates).setVisible(false);
                 break;
             case "HR_REPRESENTATIVE":
                 navigationView.getMenu().findItem(R.id.nav_users).setVisible(false);
@@ -82,11 +84,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 navigationView.getMenu().findItem(R.id.nav_future_interviews).setVisible(false);
                 navigationView.getMenu().findItem(R.id.nav_past_interviews).setVisible(false);
                 navigationView.getMenu().findItem(R.id.nav_reports).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_my_candidates).setVisible(false);
                 break;
         }
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_candidates, R.id.nav_users, R.id.nav_archived, R.id.nav_interviews, R.id.nav_future_interviews, R.id.nav_past_interviews, R.id.reports)
+                R.id.nav_home, R.id.nav_candidates, R.id.nav_users, R.id.nav_archived, R.id.nav_my_candidates, R.id.nav_interviews, R.id.nav_future_interviews, R.id.nav_past_interviews, R.id.nav_reports)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -115,7 +118,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void logout(MenuItem menuItem) {
-
         SessionManager sessionManager = new SessionManager(getApplicationContext());
         sessionManager.removeSession();
         moveToLogin();

@@ -79,7 +79,7 @@ public class FullProfilePopUp extends Activity {
 
         String id = getIntent().getStringExtra("id");
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        String urlGet = Constant.GET_CANDIDATE_BY_ID + "/" + id;
+        String urlGet = Constant.GET_CANDIDATE_BY_ID_URL + "/" + id;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlGet, null, response -> {
             try {
@@ -111,7 +111,7 @@ public class FullProfilePopUp extends Activity {
     }
 
     private void getCV(String id) {
-        String urlCV = Constant.GET_CANDIDATE_BY_ID + "/" + id + "/cv";
+        String urlCV = Constant.GET_CANDIDATE_BY_ID_URL + "/" + id + "/cv";
         InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.GET, urlCV,
                 response -> {
                     final File dwldsPath = new File(DOWNLOADS_FOLDER + txtFullName.getText().toString().replace("Name: ", "").replace(" ", "") + "CV" + ".pdf");
@@ -135,7 +135,7 @@ public class FullProfilePopUp extends Activity {
     }
 
     private void getGDPR(String id) {
-        String urlGDPR = Constant.GET_CANDIDATE_BY_ID + "/" + id + "/gdpr";
+        String urlGDPR = Constant.GET_CANDIDATE_BY_ID_URL + "/" + id + "/gdpr";
         InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.GET, urlGDPR,
                 response -> {
                     final File dwldsPath = new File(DOWNLOADS_FOLDER + txtFullName.getText().toString().replace("Name: ", "").replace(" ", "") + "GDPR" + ".pdf");

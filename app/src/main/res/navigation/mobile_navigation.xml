@@ -27,6 +27,11 @@
         android:label="Archived candidates"
         tools:layout="@layout/fragment_candidates" />
     <fragment
+        android:id="@+id/nav_my_candidates"
+        android:name="com.example.recruitmenthelper.ui.mycandidates.MyCandidatesFragment"
+        android:label="My candidates"
+        tools:layout="@layout/fragment_my_candidates" />
+    <fragment
         android:id="@+id/nav_interviews"
         android:name="com.example.recruitmenthelper.ui.interviews.InterviewsFragment"
         android:label="All interviews"

@@ -1,14 +1,17 @@
 package com.example.recruitmenthelper.ui.reports;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -18,18 +21,22 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.recruitmenthelper.R;
 import com.example.recruitmenthelper.config.Constant;
+import com.example.recruitmenthelper.popups.ReportsPopUp;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 public class ReportsFragment extends Fragment {
 
     private ReportsViewModel mViewModel;
+    FloatingActionButton fab;
+    Button reportsBtn;
     TextView txtActiveCandidates, txtArchivedCandidates, txtInterviews, txtPositiveFeedbacks, txtNegativeFeedbacks;
     private float activeCandidates, archivedCandidates, nrInterviews, positiveFeedbacks, negativeFeedbacks;
     BarChart barChart;
@@ -49,6 +56,9 @@ public class ReportsFragment extends Fragment {
         getActivity().setTitle("Reports");
 
         barChart = root.findViewById(R.id.barChart);
+
+        reportsBtn = root.findViewById(R.id.btn_application_reports);
+        reportsBtn.setOnClickListener(view -> startActivity(new Intent(getContext(), ReportsPopUp.class)));
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
         String urlActiveCandidates = Constant.COUNT_ACTIVE_CANDIDATES_URL;

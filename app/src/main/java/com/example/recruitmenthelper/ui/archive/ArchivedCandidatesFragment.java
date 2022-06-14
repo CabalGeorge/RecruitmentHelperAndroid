@@ -47,7 +47,7 @@ public class ArchivedCandidatesFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_archived, container, false);
         getActivity().setTitle("Archived candidates");
-
+        setHasOptionsMenu(true);
 
         archivedCandidatesList = new ArrayList<>();
         sessionManager = new SessionManager(getActivity().getApplicationContext());
