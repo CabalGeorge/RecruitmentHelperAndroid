@@ -2,6 +2,7 @@ package com.example.recruitmenthelper.config;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +25,8 @@ import com.example.recruitmenthelper.R;
 import com.example.recruitmenthelper.model.Interview;
 import com.example.recruitmenthelper.popups.ViewFeedbacksPopUp;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -90,11 +94,17 @@ public class InterviewAdapter extends RecyclerView.Adapter<InterviewAdapter.View
 
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             menu.setHeaderTitle("Select an action");
-            menu.add(this.getAdapterPosition(), 0, 0, "Cancel this interview");
-            menu.add(this.getAdapterPosition(), 1, 1, "View feedback");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            if(LocalDateTime.parse(interviewDateTime.getText().subSequence(13,29), formatter).isAfter(LocalDateTime.now())) {
+                menu.add(this.getAdapterPosition(), 0, 0, "Cancel this interview");
+            }
+            if(LocalDateTime.parse(interviewDateTime.getText().subSequence(13,29), formatter).isBefore(LocalDateTime.now())) {
+                menu.add(this.getAdapterPosition(), 1, 1, "View feedback");
+            }
         }
     }
 

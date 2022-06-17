@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -37,6 +38,7 @@ import java.util.Locale;
 public class ReportsPopUp extends Activity {
 
     List<Candidate> candidateList = new ArrayList<>();
+    TextView totalApplications;
     SessionManager sessionManager;
     SharedPreferences sharedPreferences;
     PieChart pieChart;
@@ -59,6 +61,7 @@ public class ReportsPopUp extends Activity {
         sessionManager = new SessionManager(getApplicationContext());
         sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
 
+        totalApplications = findViewById(R.id.totalApplications);
         pieChart = findViewById(R.id.pieChart);
         setUpPieChart();
         loadPieChartData();
@@ -81,6 +84,7 @@ public class ReportsPopUp extends Activity {
         legend.setOrientation(Legend.LegendOrientation.VERTICAL);
         legend.setDrawInside(false);
         legend.setEnabled(true);
+        legend.setWordWrapEnabled(true);
     }
 
     private void loadPieChartData() {
@@ -103,6 +107,7 @@ public class ReportsPopUp extends Activity {
             long CSharpApplications = candidateList.stream().filter(candidate -> candidate.getInterestPosition().toLowerCase(Locale.ROOT).contains("c#")).count();
             long otherApplications = candidateList.size() - javaApplications - CSharpApplications;
 
+            totalApplications.append("Total applications: " + candidateList.size());
             List<PieEntry> pieEntries = new ArrayList<>();
             pieEntries.add(new PieEntry(javaApplications, "Java"));
             pieEntries.add(new PieEntry(CSharpApplications, "C#"));
