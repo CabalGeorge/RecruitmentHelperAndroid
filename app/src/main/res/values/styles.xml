@@ -16,6 +16,8 @@
     <style name="AppTheme.CustomTheme">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="android:windowEnterAnimation">@anim/pop_up_show</item>
+        <item name="android:windowExitAnimation">@anim/pop_up_hide</item>
     </style>
 
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog" >
